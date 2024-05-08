@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\products;
 
 use App\Models\Product;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class ProductList extends Component
 {

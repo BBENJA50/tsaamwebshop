@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\categories;
 
 use App\Models\Category;
 use Livewire\Component;
@@ -10,26 +10,17 @@ class EditCategory extends Component
 
     public function editCategory($id){
 
-        $category = Category::findOrFail($id);
-        $this->name = $category->name;
-
 
     }
 
     public function updateCategory()
     {
-        $this->validate([
-            'name' => 'required',
-        ]);
-
         $category = Category::find(request('id'));
+        $request = request();
+
         $category->update([
-
-            'name' => $this->name,
-
+            'name' => $request->input('name'),
         ]);
-
-        return $this->redirect('/categorie', navigate: true);
     }
 
     public function render()

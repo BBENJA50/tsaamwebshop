@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\users;
 
 use App\Models\User;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class UserList extends Component
 {

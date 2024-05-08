@@ -44,7 +44,7 @@
                             {{ $category->name }}
                         </th>
                         <td class="px-2 py-3 text-right">
-                            <a href=" {{ route('editcategory', $category->id) }}"
+                            <a href=" {{ route('editcategory', $category) }}"
                                class="font-medium no-underline text-gray-500 dark:text-blue-500 hover:underline hover:text-gray-900">Bewerken</a>
                         </td>
                         <td class="pe-4 py-3 text-right">

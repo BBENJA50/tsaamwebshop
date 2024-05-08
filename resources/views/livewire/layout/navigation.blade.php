@@ -31,9 +31,9 @@ new class extends Component {
                 <div class="hidden space-x-8 md:-my-px md:ms-10 md:flex">
                     <x-dropdown>
                         <x-slot name="trigger">
-                            <button class="mt-4">
-                                Producten
-                            </button>
+                            <x-nav-link href="#" :active="request()->routeIs('producten') || request()->routeIs('categorie')" class="text-decoration-none pt-4 pb-2 ">
+                                {{ __('Producten') }}
+                            </x-nav-link>
                         </x-slot>
                         <x-slot name="content">
                             <div class="flex flex-col">
@@ -52,9 +52,9 @@ new class extends Component {
 
                     <x-dropdown>
                         <x-slot name="trigger" >
-                            <button class="mt-4">
-                                Gebruikers
-                            </button>
+                            <x-nav-link href="#" :active="request()->routeIs('gebruikers') || request()->routeIs('rollen')" class="text-decoration-none pt-4 pb-2 ">
+                                {{ __('Gebruikers') }}
+                            </x-nav-link>
                         </x-slot>
 
                         <x-slot name="content" align="right">

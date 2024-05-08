@@ -1,13 +1,12 @@
 <?php
 
-use App\Livewire\AddCategory;
-use App\Livewire\AddProduct;
-use App\Livewire\AddUser;
-use App\Livewire\CategoryList;
-use App\Livewire\EditCategory;
-use App\Livewire\ProductList;
-use App\Livewire\TestPage;
-use App\Livewire\UserList;
+use App\Livewire\categories\AddCategory;
+use App\Livewire\categories\CategoryList;
+use App\Livewire\categories\EditCategory;
+use App\Livewire\products\AddProduct;
+use App\Livewire\products\ProductList;
+use App\Livewire\users\AddUser;
+use App\Livewire\users\UserList;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');

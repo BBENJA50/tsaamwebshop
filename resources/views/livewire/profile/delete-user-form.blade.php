@@ -26,7 +26,7 @@ new class extends Component
 <section class="space-y-6">
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Delete Account') }}
+            {{ __('Verwijder Account') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -56,7 +56,8 @@ new class extends Component
                 <x-text-input
                     wire:model="password"
                     id="password"
-                    name="password"
+                    first_name="password"
+                    last_name="password"
                     type="password"
                     class="mt-1 block w-3/4"
                     placeholder="{{ __('Password') }}"

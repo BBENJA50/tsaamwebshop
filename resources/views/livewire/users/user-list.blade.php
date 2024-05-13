@@ -30,8 +30,11 @@
                     <th scope="col" class="px-6 py-3">
                         Email adres
                     </th>
+                    <th>
+                        GSM nummer
+                    </th>
                     <th scope="col" class="px-6 py-3">
-                        Roles
+                        Rollen
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Status
@@ -50,14 +53,33 @@
                         <td class="px-6 py-4">
                             {{ $user->email }}
                         </td>
+                        <td>
+                            {{ $user->gsm_number }}
+                        </td>
                         <td class="px-6 py-4">
                             {{ $user->category }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $user-> is_active == 1 ? 'Actief' : 'Inactief' }}
                         </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        <td class="px-6 py-4 text-right justify-end flex">
+                            <a  href=" {{ route('edituser', $user->id) }}" class="px-2 font-medium no-underline text-blue-600 dark:text-blue-500 hover:underline">Bewerken</a>
+                            @if($user->deleted_at != NULL)
+                                {{-- Restore deleted user--}}
+                                <a href="#" wire:click="restore({{ $user->id }})"  class="px-2 font-medium no-underline text-blue-600 dark:text-blue-500 hover:underline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-orange-700" viewBox="0 0 512 512">
+                                        <path d="M125.7 160H176c17.7 0 32 14.3 32 32s-14.3 32-32 32H48c-17.7 0-32-14.3-32-32V64c0-17.7 14.3-32 32-32s32 14.3 32 32v51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z"/></svg>
+                                </a>
+                            @else
+                                <a  href="#" wire:click="delete({{ $user->id }})" wire:confirm="Ben je zeker dat je {{ $user->first_name }} {{ $user->last_name }} wilt verwijderen?"
+                                    class="px-2 font-medium text-blue-600 dark:text-blue-500 hover:underline text-right object-right flex inline-flex">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-red-700" viewBox="0 0 448 512">
+                                        <path
+                                            d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"/>
+                                    </svg>
+                                </a>
+                            @endif
+
                         </td>
                     </tr>
                 @empty

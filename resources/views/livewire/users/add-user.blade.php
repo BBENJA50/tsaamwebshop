@@ -21,34 +21,50 @@
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow sm:px-8 sm:py-6 sm:w-full ">
-                    <form class="max-w-xl mx-auto">
+                    <form method="POST" wire:submit.prevent="saveUser"  class="max-w-xl mx-auto">
+                        @csrf
                         <div class="grid md:grid-cols-2 md:gap-6">
                             <div class="relative z-0 w-full mb-3 group">
-                                <label for="voornaam" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Voornaam</label>
-                                <input type="text" id="voornaam" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Voornaam</label>
+                                <input wire:model="first_name" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            @error( 'first_name')
+                            <div class="text-red-500">{{ $message }}</div>
+                            @enderror
                             </div>
                             <div class="relative z-0 w-full mb-3 group">
-                                <label for="familienaam" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Familienaam</label>
-                                <input type="text" id="familienaam" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Familienaam</label>
+                                <input wire:model="last_name" type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            @error( 'last_name')
+                            <div class="text-red-500">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
                         <div class="grid md:grid-cols-2 md:gap-6">
                             <div class="relative z-0 w-full mb-3 group">
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email adres</label>
-                                <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <input wire:model="email" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            @error( 'email')
+                            <div class="text-red-500">{{ $message }}</div>
+                            @enderror
                             </div>
                             <div class="relative z-0 w-full mb-3 group">
                                 <label for="gsmnummer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">GSM-nummer (0123-123-123)</label>
-                                <input type="tel" pattern="[0-9]{4}-[0-9]{3}-[0-9]{3}" name="gsmnummer" id="gsmnummer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
+                                <input wire:model="gsm_number" type="tel" pattern="[0-9]{10}" name="gsmnummer" id="gsmnummer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
                             </div>
                         </div>
                         <div class="relative z-0 w-full mb-3 group">
-                            <label for="floating_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Paswoord</label>
-                            <input type="password" name="floating_password" id="floating_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Paswoord</label>
+                            <input wire:model="password" type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
+                        @error( 'password')
+                        <div class="text-red-500">{{ $message }}</div>
+                        @enderror
                         </div>
                         <div class="relative z-0 w-full mb-3 group">
                             <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bevestig paswoord</label>
-                            <input type="password" name="confirm_password" id="floating_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
+                            <input wire:model="confirm_password" type="password" name="confirm_password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
+                        @error( 'confirm_password')
+                        <div class="text-red-500">{{ $message }}</div>
+                        @enderror
                         </div>
                         <button type="submit" class="text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-700">Versturen</button>
                     </form>

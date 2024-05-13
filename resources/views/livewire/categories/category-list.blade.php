@@ -48,7 +48,7 @@
                                class="font-medium no-underline text-gray-500 dark:text-blue-500 hover:underline hover:text-gray-900">Bewerken</a>
                         </td>
                         <td class="pe-4 py-3 text-right">
-                            <a wire:click="deleteCategory({{ $category->id }})" href="#"
+                            <a wire:click="delete({{ $category->id }})" wire:confirm="Ben je zeker dat je {{ $category->name }} wilt verwijderen?" href="#"
                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-right object-right flex inline-flex">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-red-700" viewBox="0 0 448 512">
                                     <path

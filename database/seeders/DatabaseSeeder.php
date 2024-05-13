@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'first_name' => 'Benjamin',
             'last_name' => 'Migom',
             'email' => 'migom@hotmail.be',
+            'gsm_number' => '0471234567',
             'password' => '12345678',
         ]);
         User::factory(50)->create();

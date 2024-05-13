@@ -7,21 +7,37 @@ use Livewire\Component;
 
 class EditCategory extends Component
 {
+    public $category_id;
 
-    public function editCategory($id){
+    public Category $category;
+    public $name;
 
 
-    }
-
-    public function updateCategory()
+    public function mount( $id )
     {
-        $category = Category::find(request('id'));
-        $request = request();
-
-        $category->update([
-            'name' => $request->input('name'),
-        ]);
+        $this->category_id = $id;
+        $this->category = Category::where('id', $id)->first();
+        $this->name = $this->category->name;
     }
+
+    public function update()
+    {
+        //validation
+        $this->validate([
+            'name' => 'required',
+        ]);
+        //edit details
+        try {
+            Category::where('id', $this->category_id)->update([
+                'name' => $this->name
+            ]);
+            // redirect
+            $this->redirect('/categorie', navigate: true);
+        } catch (\Exception $th) {
+            dd($th);
+        }
+    }
+
 
     public function render()
     {

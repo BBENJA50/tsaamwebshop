@@ -16,6 +16,7 @@ class Product extends Model
         'description',
         'price',
         'category_id',
+        'attribute_id',
         'maten',
         'kleur',
     ];
@@ -23,6 +24,11 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function attribute(): BelongsTo
+    {
+        return $this->belongsTo(Attribute::class);
     }
 
     public function attributeOptions(): HasMany

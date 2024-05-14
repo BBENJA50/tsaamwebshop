@@ -16,7 +16,6 @@
                            class="text-white text-decoration-none fill-white bg-orange-500 hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-orange-300 font-medium rounded-full text-sm px-4 py-2.5 text-center me-2 mb-2 dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-700">
                             Terug
                         </a>
-
                     </div>
                 </div>
 
@@ -24,97 +23,139 @@
                     <form method="POST" wire:submit.prevent="saveProduct" class="max-w-xl mx-auto">
                         @csrf
                         <div class="relative z-0 w-full mb-3 group">
-                            <label for="naam" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Naam</label>
-                            <input wire:model="name" type="text" id="naam" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <label for="naam"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Naam</label>
+                            <input wire:model="name" type="text" id="naam"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                             @error('name')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="relative z-0 w-full mb-3 group">
-                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Beschrijving</label>
-                            <textarea wire:model="description" id="description" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                            <label for="description"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Beschrijving</label>
+                            <textarea wire:model="description" id="description" rows="4"
+                                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"></textarea>
                             @error('description')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="relative z-0 w-full mb-3 group">
                             <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prijs</label>
-                            <input wire:model="price" step="0.01" type="number" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <input wire:model="price" step="0.01" type="number" id="price"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                             @error('price')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div class="relative z-0 w-full mb-3 group">
-                            <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categorieën</label>
-                            <input wire:model="categories" type="text" id="categories" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            @error('categories')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="grid md:grid-cols-2 md:gap-6">
                             <div class="relative z-0 w-full mb-3 group">
-                                <label for="kleuren" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kleuren</label>
-                                <div class="flex items-center me-4">
-                                    <input id="red-checkbox" type="checkbox" value="" class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="red-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Rood</label>
-                                </div>
-                                <div class="flex items-center me-4">
-                                    <input id="green-checkbox" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="green-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Groen</label>
-                                </div>
-                                <div class="flex items-center me-4">
-                                    <input id="purple-checkbox" type="checkbox" value="" class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="purple-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Paars</label>
-                                </div>
-                                <div class="flex items-center me-4">
-                                    <input id="teal-checkbox" type="checkbox" value="" class="w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="teal-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Groenblauw</label>
-                                </div>
-                                <div class="flex items-center me-4">
-                                    <input id="yellow-checkbox" type="checkbox" value="" class="w-4 h-4 text-yellow-400 bg-gray-100 border-gray-300 rounded focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="yellow-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Geel</label>
-                                </div>
-                                <div class="flex items-center me-4">
-                                    <input id="orange-checkbox" type="checkbox" value="" class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 rounded focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="orange-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Oranje</label>
-                                </div>
-
+                                <label for="categories"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categorie</label>
+                                <select wire:model="category_id" id="categories"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                                    <option value="Selecteer een categorie" selected disabled>Selecteer een categorie.
+                                    </option>
+                                    @foreach( $categories as $category)
+                                        <option class="py-2 my-2"
+                                                value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('categories')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
-                            <div class="relative z-0 w-full mb-3 group">
-                                <label for="maten" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Maten</label>
+                            <div class="z-0 w-full mb-3 group">
+                                <div
+                                    x-data="{
+                                                open: false,
+                                                toggle() {
+                                                    if (this.open) {
+                                                        return this.close()
+                                                    }
+                                                    this.$refs.button.focus()
+                                                    this.open = true
+                                                },
+                                                close(focusAfter) {
+                                                    if (! this.open) return
+                                                    this.open = false
+                                                    focusAfter && focusAfter.focus()
+                                                }
+                                            }"
+                                    x-on:keydown.escape.prevent.stop="close($refs.button)"
+                                    x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                                    x-id="['dropdownHelperRadioButton']"
+                                    class="relative"
+                                >
+                                    <label for="dropdownHelperRadioButton"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Attributen</label>
+                                    <button x-ref="button"
+                                            x-on:click="toggle()"
+                                            :aria-expanded="open"
+                                            :aria-controls="$id('dropdownHelperRadioButton')"
+                                            id="dropdownHelperRadioButton" data-dropdown-toggle="dropdownHelperRadio"
+                                            class="w-full text-white bg-orange-600 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm ps-3 py-2.5  text-end inline-flex items-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800 relative"
+                                            type="button">
+                                        <svg class="w-2.5 h-2.5 me-2.5" aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                  stroke-width="2" d="m1 1 4 4 4-4"/>
+                                        </svg>
+                                        {{ $attributen[$selectedAttribute]->name }}
+                                    </button>
 
-                                <div class="flex items-center me-4">
-                                    <input id="red-checkbox" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="red-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">XS</label>
+                                    <!-- Dropdown menu -->
+                                    <div x-ref="panel"
+                                         x-show="open"
+                                         x-transition.origin.top.left
+                                         x-on:click.outside="close($refs.button)"
+                                         :id="$id('dropdownHelperRadioButton')" id="dropdownHelperRadio"
+                                         class=" z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-60 dark:bg-gray-700 dark:divide-gray-600"
+                                         data-popper-reference-hidden="" data-popper-escaped=""
+                                         data-popper-placement="top" style="display: none; margin: 0px; ">
+                                        <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200"
+                                            aria-labelledby="dropdownHelperRadioButton">
+                                            @foreach( $attributen as $attribute)
+                                                <li>
+                                                    <div x-on:click="open = false"
+                                                         x-data="{changeSelectedAttribute: () => { @this.changeSelectedAttribute({{ $attribute->id }}) }}"
+                                                         class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                                        <div class="flex items-center h-5">
+                                                            <input x-on:change="changeSelectedAttribute"
+                                                                   wire:model="attribute_id"
+                                                                   id="helper-radio-{{ $attribute->id }}"
+                                                                   name="attribute-radio"
+                                                                   type="radio"
+                                                                   value=" {{ $attribute->id }}"
+                                                                   class="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                        </div>
+                                                        <div class="ms-2 text-sm">
+                                                            <label for="helper-radio-{{ $attribute->id }}"
+                                                                   class="font-medium text-gray-900 dark:text-gray-300">
+                                                                <div>{{ $attribute->name }}</div>
+                                                                <div class="flex flex-wrap">
+                                                                    @foreach( $attribute->attributeOptions as $attributeOption)
+                                                                        <p id="helper-radio-text-{{ $attributeOption->id }}"
+                                                                           class="text-xs font-normal px-1 text-gray-500 dark:text-gray-300">
+                                                                            {{ $attributeOption->value }}</p>
+                                                                    @endforeach
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="flex items-center me-4">
-                                    <input id="red-checkbox" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="red-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">S</label>
-                                </div>
-                                <div class="flex items-center me-4">
-                                    <input id="red-checkbox" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="red-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">M</label>
-                                </div>
-                                <div class="flex items-center me-4">
-                                    <input id="red-checkbox" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="red-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">L</label>
-                                </div>
-                                <div class="flex items-center me-4">
-                                    <input id="red-checkbox" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="red-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">XL</label>
-                                </div>
-                                <div class="flex items-center me-4">
-                                    <input id="red-checkbox" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="red-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">XXL</label>
-                                </div>
-
                             </div>
+                            <button type="submit"
+                                    class="text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-700">
+                                Versturen
+                            </button>
                         </div>
-                        <button type="submit" class="text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-700">Versturen</button>
                     </form>
-
                 </div>
-
             </div>
         </div>
     </div>

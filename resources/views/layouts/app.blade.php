@@ -15,8 +15,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+        <link rel="icon" href="{{ asset('Accenten.svg') }}">
     </head>
-    <body class="font-sans antialiased ">
+    <body class="font-sans antialiased selection:bg-orange-500 selection:text-white">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         <livewire:layout.navigation />
 

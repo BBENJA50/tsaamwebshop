@@ -17,6 +17,16 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                tsaam: {
+                    200: "#ffcc63",
+                    300: '#FFD89C',
+                    400: '#FFBE5B',
+                    500: '#faa727', /** default tsaam oranje */
+                    600: '#CD7D02',
+                    700: '#885300',
+                },
+            }
         },
     },
 

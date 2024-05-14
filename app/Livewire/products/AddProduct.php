@@ -2,7 +2,10 @@
 
 namespace App\Livewire\products;
 
+use App\Models\AttributeOption;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Attribute;
 use Livewire\Component;
 
 class AddProduct extends Component
@@ -10,9 +13,17 @@ class AddProduct extends Component
     public $name;
     public $price;
     public $description;
-    public $maten;
     public $categories;
-    public $kleur;
+    public $category_id;
+    public $attributen;
+    public $attributeOptions;
+    public $attribute_id;
+    public $selectedAttribute = 0;
+
+    public function changeSelectedAttribute($id)
+    {
+        $this->selectedAttribute = $id - 1;
+    }
 
     public function saveProduct()
     {
@@ -20,21 +31,17 @@ class AddProduct extends Component
             'name' => 'required',
             'price' => 'required',
             'description' => 'required',
-//            'maten' => 'required',
-//            'categories' => 'required',
-//            'kleur' => 'required',
+            'category_id' => 'required',
+            'attribute_id' => 'required',
         ]);
 
         try {
-
             Product::create([
                 'name' => $this->name,
                 'price' => $this->price,
                 'description' => $this->description,
-//                'maten' => $this->maten,
-//                'categories' => $this->categories,
-//                'kleur' => $this->kleur,
-
+                'category_id' => $this->category_id,
+                'attribute_id' => $this->attribute_id,
             ]);
 
             return $this->redirect('/producten', navigate: true);
@@ -42,10 +49,13 @@ class AddProduct extends Component
         } catch (\Exception $e) {
             dd($e);
         }
-
     }
     public function render()
     {
+        $this->categories = Category::all();
+        $this->attributen = Attribute::all();
+        $this->attributeOptions = AttributeOption::all();
+
         return view('livewire.products.add-product');
     }
 }

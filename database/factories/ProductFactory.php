@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Attribute;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,12 +18,14 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $categoryIds=Category::pluck('id')->toArray();
+        $attributeIds=Attribute::pluck('id')->toArray();
         return [
             'name' => fake()->word(),
             'price' => fake()->numberBetween(100, 1000),
             'description' => fake()->sentence(),
-//            'colors' => fake()->colorName(),
-//            'category' => fake()->word(),
+            'category_id' => fake()->randomElement($categoryIds),
+            'attribute_id' => fake()->randomElement($attributeIds),
         ];
     }
 }

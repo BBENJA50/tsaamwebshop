@@ -2,6 +2,7 @@
 
 namespace App\Livewire\products;
 
+
 use App\Models\Product;
 use Livewire\Component;
 

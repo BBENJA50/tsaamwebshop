@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price', 8, 2);
             $table->text('description');
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('category_id')->unsigned()->constrained();
+            $table->foreignId('attribute_id')->unsigned()->constrained();
             $table->softDeletes();
             $table->timestamps();
 

@@ -2,17 +2,19 @@
 
 namespace App\Livewire\products;
 
+use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
 
 class EditProduct extends Component
 {
     public $product_id;
-
     public Product $product;
     public $name;
     public $description;
     public $price;
+    public $categories;
+    public $category_id;
 
     public function mount( $id )
     {
@@ -21,6 +23,7 @@ class EditProduct extends Component
         $this->name = $this->product->name;
         $this->description = $this->product->description;
         $this->price = $this->product->price;
+        $this->category_id = $this->product->category_id;
     }
 
     public function update()
@@ -30,6 +33,7 @@ class EditProduct extends Component
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'category_id' => 'required',
         ]);
         //edit details
         try {
@@ -37,6 +41,7 @@ class EditProduct extends Component
                 'name' => $this->name,
                 'description' => $this->description,
                 'price' => $this->price,
+                'category_id' => $this->category_id,
                 'updated_at' => now()
             ]);
             // redirect
@@ -47,6 +52,8 @@ class EditProduct extends Component
     }
     public function render()
     {
+        $this->categories = Category::all();
+
         return view('livewire.products.edit-product');
     }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('attribute_options', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('attribute_id')->constrained();
+            $table->foreignId('attribute_id')->unsigned()->constrained();
             $table->string('value');
             $table->timestamps();
         });

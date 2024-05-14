@@ -14,6 +14,10 @@ class Attribute extends Model
         'name',
     ];
 
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
     public function attributeOptions(): HasMany
     {
         return $this->hasMany(AttributeOption::class);

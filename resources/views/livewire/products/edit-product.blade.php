@@ -45,8 +45,13 @@
                             @enderror
                         </div>
                         <div class="relative z-0 w-full mb-3 group">
-                            <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categorieën</label>
-                            <input wire:model="categories"  type="text" id="categories" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categorie</label>
+                            <select wire:model="category_id" id="categories" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                                <option value="Selecteer een categorie" selected disabled>Selecteer een categorie.</option>
+                                @foreach( $categories as $category)
+                                    <option {{ $category->id == $product->category->id ? 'selected' : ''}} value="{{ $category->id }}" >{{ $category->name }}</option>
+                                @endforeach
+                            </select>
                             @error('categories')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror

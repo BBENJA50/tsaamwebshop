@@ -26,14 +26,14 @@
                         <div class="grid md:grid-cols-2 md:gap-6">
                             <div class="relative z-0 w-full mb-3 group">
                                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Voornaam</label>
-                                <input wire:model="first_name" value=" {{ $first_name }}" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <input wire:model="first_name" value=" {{ $user->first_name }}" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 @error( 'first_name')
                                 <div class="text-red-500">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="relative z-0 w-full mb-3 group">
                                 <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Familienaam</label>
-                                <input wire:model="last_name" value=" {{ $last_name }}" type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <input wire:model="last_name" value=" {{ $user->last_name }}" type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 @error( 'last_name')
                                 <div class="text-red-500">{{ $message }}</div>
                                 @enderror
@@ -42,14 +42,14 @@
                         <div class="grid md:grid-cols-2 md:gap-6">
                             <div class="relative z-0 w-full mb-3 group">
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email adres</label>
-                                <input wire:model="email" value=" {{ $email }}" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <input wire:model="email" value=" {{ $user->email }}" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 @error( 'email')
                                 <div class="text-red-500">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="relative z-0 w-full mb-3 group">
                                 <label for="gsmnummer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">GSM-nummer (0123-123-123)</label>
-                                <input wire:model="gsm_number" value=" {{ $gsm_number }}" type="tel" pattern="[0-9]{10}" name="gsmnummer" id="gsmnummer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
+                                <input wire:model="gsm_number" value=" {{ $user->gsm_number }}" type="tel" pattern="[0-9]{10}" name="gsmnummer" id="gsmnummer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
                             </div>
                         </div>
 

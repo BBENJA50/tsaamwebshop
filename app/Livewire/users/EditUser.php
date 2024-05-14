@@ -8,22 +8,12 @@ use Livewire\Component;
 class EditUser extends Component
 {
     public $user_id;
-
     public User $user;
-    public $first_name;
-    public $last_name;
-    public $email;
-    public $gsm_number;
 
     public function mount( $id )
     {
         $this->user_id = $id;
         $this->user = User::where('id', $id)->first();
-        $this->first_name = $this->user->first_name;
-        $this->last_name = $this->user->last_name;
-        $this->email = $this->user->email;
-        $this->gsm_number = $this->user->gsm_number;
-
     }
 
     public function update()

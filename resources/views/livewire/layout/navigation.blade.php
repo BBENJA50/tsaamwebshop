@@ -29,7 +29,7 @@ new class extends Component {
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 md:-my-px md:ms-10 md:flex">
-                    <x-dropdown>
+                    <x-dropdown align="left">
                         <x-slot name="trigger">
                             <x-nav-link href="#" :active="request()->routeIs('producten') || request()->routeIs('categorie')" class="text-decoration-none pt-4 pb-2 ">
                                 {{ __('Producten') }}
@@ -50,7 +50,7 @@ new class extends Component {
                         </x-slot>
                     </x-dropdown>
 
-                    <x-dropdown>
+                    <x-dropdown align="left">
                         <x-slot name="trigger" >
                             <x-nav-link href="#" :active="request()->routeIs('gebruikers') || request()->routeIs('rollen')" class="text-decoration-none pt-4 pb-2 ">
                                 {{ __('Gebruikers') }}

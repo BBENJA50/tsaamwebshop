@@ -10,6 +10,7 @@ class UserList extends Component
     public $all_users;
     public $is_active;
 
+
     public function mount()
     {
         $this->all_users = User::withTrashed()->get();
@@ -48,6 +49,7 @@ class UserList extends Component
             [
                 //Toon alle users die ook verwijderd zijn
                 'users' => User::withTrashed()->paginate(15),
+
             ]);
     }
 }

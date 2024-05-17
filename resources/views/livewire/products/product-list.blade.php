@@ -65,7 +65,7 @@
                         </td>
                         <td class="px-6 py-4 text-right flex justify-end">
                             <a href="{{ route('editproduct', ['id' => $product->id]) }}"
-                               class="px-2 font-medium no-underline text-orange-400 dark:text-orange-500 hover:underline hover:text-orange-500 ">Bewerken</a>
+                               class="px-2 font-medium no-underline text-blue-400 dark:text-blue-500 hover:underline hover:text-orange-500 ">Bewerken</a>
                             <a  href="#" wire:click="delete({{ $product->id }})" wire:confirm="Ben je zeker dat je {{ $product->name }} wilt verwijderen?"
                                 class="px-2 font-medium text-blue-600 dark:text-blue-500 hover:underline text-right object-right flex inline-flex">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-red-700" viewBox="0 0 448 512">

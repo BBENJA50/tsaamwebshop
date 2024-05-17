@@ -71,5 +71,14 @@ class DatabaseSeeder extends Seeder
         }
 
         Product::factory(300)->create();
+
+        $this->call([
+            AcademicYearSeeder::class,
+            CampusSeeder::class,
+            ChildSeeder::class,
+            GradeSeeder::class,
+            StudyFieldSeeder::class,
+            SubjectSeeder::class,
+            ]);
     }
 }

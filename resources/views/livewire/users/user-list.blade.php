@@ -33,6 +33,9 @@
                     <th>
                         GSM nummer
                     </th>
+                    <th>
+                        Kinderen
+                    </th>
                     <th scope="col" class="px-6 py-3">
                         Rollen
                     </th>
@@ -55,6 +58,15 @@
                         </td>
                         <td>
                             {{ $user->gsm_number }}
+                        </td>
+                        <td>
+                            @if( count($user->children) > 0)
+                                @foreach($user->children as $child)
+                                    <p>{{ $child->first_name }} {{ $child->last_name }}</p>
+                                @endforeach
+                            @else
+                                Geen
+                            @endif
                         </td>
                         <td class="px-6 py-4">
                             {{ $user->category }}

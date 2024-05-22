@@ -6,6 +6,7 @@ use App\Models\Attribute;
 use App\Models\AttributeOption;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Studiekeuze;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -75,10 +76,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AcademicYearSeeder::class,
             CampusSeeder::class,
-            ChildSeeder::class,
             GradeSeeder::class,
             StudyFieldSeeder::class,
             SubjectSeeder::class,
-            ]);
+            StudiekeuzeSeeder::class,
+            ChildSeeder::class,
+
+        ]);
     }
 }

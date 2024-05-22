@@ -20,8 +20,18 @@ class Grade extends Model
         return $this->belongsToMany(StudyField::class, 'study_field_grades');
     }
 
-    public function campuses(): BelongsToMany
+    public function campus(): BelongsToMany
     {
-        return $this->belongsToMany(Campus::class, 'campus_grades');
+        return $this->belongsToMany(Campus::class, 'campus_grade_pivot');
+    }
+
+    public function academicYears(): BelongsToMany
+    {
+        return $this->belongsToMany(AcademicYear::class, 'academic_year_grade_pivot');
+    }
+
+    public function studiekeuzes(): HasMany
+    {
+        return $this->hasMany(Studiekeuze::class);
     }
 }

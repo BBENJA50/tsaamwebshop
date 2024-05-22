@@ -17,5 +17,14 @@ class CampusSeeder extends Seeder
             ['name' => 'Cardijn'],
             ['name' => 'Aloysius'],
         ]);
+
+        // Now we populate the pivot table with 2 campuses for each year we add both campusses
+        foreach (DB::table('academic_years')->get() as $academic_year) {
+            DB::table('academic_year_campus_pivot')->insert([
+                ['academic_year_id' => $academic_year->id, 'campus_id' => 1],
+                ['academic_year_id' => $academic_year->id, 'campus_id' => 2],
+            ]);
+        }
+
     }
 }

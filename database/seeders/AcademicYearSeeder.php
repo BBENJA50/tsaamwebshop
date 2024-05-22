@@ -14,6 +14,7 @@ class AcademicYearSeeder extends Seeder
     public function run(): void
     {
         DB::table('academic_years')->insert([
+            ['name' => '2022-2023'],
             ['name' => '2023-2024'],
             ['name' => '2024-2025'],
         ]);

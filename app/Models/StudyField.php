@@ -20,8 +20,9 @@ class StudyField extends Model
         return $this->belongsToMany(Subject::class, 'study_field_subjects');
     }
 
-    public function grades(): BelongsToMany
+    public function studiekeuzes(): HasMany
     {
-        return $this->belongsToMany(Grade::class, 'study_field_grades');
+        return $this->hasMany(Studiekeuze::class);
     }
+
 }

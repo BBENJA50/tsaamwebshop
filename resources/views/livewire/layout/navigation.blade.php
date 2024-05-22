@@ -56,20 +56,33 @@ new class extends Component {
                                 {{ __('Gebruikers') }}
                             </x-nav-link>
                         </x-slot>
-
                         <x-slot name="content" align="right">
                             <div class="flex flex-col ">
-                                <x-nav-link :href="route('gebruikers')" :active="request()->routeIs('gebruikers')"
-                                            wire:navigate class="text-decoration-none p-2 m-2">
+                                <x-nav-link :href="route('gebruikers')" :active="request()->routeIs('gebruikers')" wire:navigate class="text-decoration-none p-2 m-2">
                                     {{ __('Gebruikers') }}
                                 </x-nav-link>
                                 <x-nav-link :href="route('dashboard')" :active="request()->routeIs('rollen')" wire:navigate class="text-decoration-none p-2 m-2">
                                     {{ __('Rollen') }}
                                 </x-nav-link>
+                                <x-nav-link :href="route('children')" :active="request()->routeIs('kinderen')" wire:navigate class="text-decoration-none p-2 m-2">
+                                    {{ __('Kinderen') }}
+                                </x-nav-link>
                             </div>
-
                         </x-slot>
-
+                    </x-dropdown>
+                    <x-dropdown align="left">
+                        <x-slot name="trigger" >
+                            <x-nav-link href="#" :active="request()->routeIs('studiekeuzes') || request()->routeIs('rollen')" class="text-decoration-none pt-4 pb-2 ">
+                                {{ __('School') }}
+                            </x-nav-link>
+                        </x-slot>
+                        <x-slot name="content" align="right">
+                            <div class="flex flex-col ">
+                                <x-nav-link :href="route('studiekeuzes')" :active="request()->routeIs('studiekeuzes')" wire:navigate class="text-decoration-none p-2 m-2">
+                                    {{ __('Studiekeuzes') }}
+                                </x-nav-link>
+                            </div>
+                        </x-slot>
                     </x-dropdown>
                 </div>
             </div>

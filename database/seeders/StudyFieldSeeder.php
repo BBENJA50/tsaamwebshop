@@ -29,5 +29,7 @@ class StudyFieldSeeder extends Seeder
             ['name' => 'Lassen-constructie'],
 
         ]);
+
+
     }
 }

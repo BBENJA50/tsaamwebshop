@@ -22,5 +22,15 @@ class GradeSeeder extends Seeder
             ['name' => '6e jaar'],
             ['name' => '7e jaar'],
         ]);
+
+        //now we populate the pivot table with 7 grades for the first campus and 6 grades for the second
+        foreach (DB::table('grades')->get() as $grade) {
+            DB::table('campus_grade_pivot')->insert([
+                ['campus_id' => 1, 'grade_id' => $grade->id],
+                ['campus_id' => 2, 'grade_id' => $grade->id],
+            ]);
+        }
+        //now remove tha last grade from the second campus
+        DB::table('campus_grade_pivot')->where('campus_id', 2)->where('grade_id', 7)->delete();
     }
 }

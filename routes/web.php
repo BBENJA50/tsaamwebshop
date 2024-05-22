@@ -3,9 +3,14 @@
 use App\Livewire\categories\AddCategory;
 use App\Livewire\categories\CategoryList;
 use App\Livewire\categories\EditCategory;
+use App\Livewire\children\AddChild;
+use App\Livewire\children\ChildList;
+use App\Livewire\children\EditChild;
 use App\Livewire\products\AddProduct;
 use App\Livewire\products\EditProduct;
 use App\Livewire\products\ProductList;
+use App\Livewire\studiekeuzes\AddStudiekeuze;
+use App\Livewire\studiekeuzes\StudiekeuzeList;
 use App\Livewire\users\AddUser;
 use App\Livewire\users\EditUser;
 use App\Livewire\users\UserList;
@@ -42,6 +47,17 @@ Route::get('/nieuw/categorie', AddCategory::class)
 Route::get('/edit/categorie/{id}', EditCategory::class)
     ->name('editcategory');
 
+Route::get('/kinderen', ChildList::class)
+    ->name('children');
+Route::get('/nieuw/kind', AddChild::class)
+    ->name('addchild');
+Route::get('/edit/kind/{id}', EditChild::class)
+    ->name('editchild');
+
+Route::get('/studiekeuzes', StudiekeuzeList::class)
+    ->name('studiekeuzes');
+Route::get('/nieuw/studiekeuze', AddStudiekeuze::class)
+    ->name('addstudiekeuze');
 
 
 

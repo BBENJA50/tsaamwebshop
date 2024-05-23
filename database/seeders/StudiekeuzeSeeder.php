@@ -13,7 +13,7 @@ class StudiekeuzeSeeder extends Seeder
      */
     public function run(): void
     {
-        Studiekeuze::factory(10)->create();
+        Studiekeuze::factory(60)->create();
 
     }
 }

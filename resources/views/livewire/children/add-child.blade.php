@@ -10,6 +10,9 @@
                             Voeg een kind toe.
                         </p>
                     </div>
+                    @if (session()->has('message'))
+                        <div class="alert alert-success">{{ session('message') }}</div>
+                    @endif
                     <div
                         class="basis-1/6 p-4 text-sm font-normal text-right rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800 align-middle content-center">
                         <a href="{{ route('children') }}" wire:navigate type="button"
@@ -43,7 +46,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-2 md:gap-6">
+                        <div class="">
                             <div class="relative z-0 w-full mb-3 group">
                                 <label for="studiekeuzes"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Studiekeuze</label>
@@ -60,27 +63,28 @@
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
-                        <div class="relative z-0 w-full mb-3 group">
-                            <label for="users"
-                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ouder/Voogd</label>
-                            <select wire:model="user_id" id="users"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
-                                <option value="Selecteer een ouder/voogd"  selected >Selecteer een ouder/voogd.
-                                </option>
-                                @foreach( $users as $user)
-                                    <option class="py-2 my-2"
-                                            value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
-                                @endforeach
-                            </select>
-                            @error('users')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+{{--                        <div class="relative z-0 w-full mb-3 group">--}}
+{{--                            <label for="users"--}}
+{{--                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ouder/Voogd</label>--}}
+{{--                            <select wire:model="user_id" id="users"--}}
+{{--                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">--}}
+{{--                                <option value="Selecteer een ouder/voogd"  selected >Selecteer een ouder/voogd.--}}
+{{--                                </option>--}}
+{{--                                @foreach( $users as $user)--}}
+{{--                                    <option class="py-2 my-2"--}}
+{{--                                            value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                            @error('users')--}}
+{{--                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>--}}
+{{--                            @enderror--}}
+{{--                        </div>--}}
 
                         <button type="submit"
                                 class="text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-700">
                             Versturen
                         </button>
+                        </div>
                     </form>
 
                 </div>

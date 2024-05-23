@@ -6,6 +6,7 @@ use App\Models\AttributeOption;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Attribute;
+use App\Models\Subject;
 use Livewire\Component;
 
 class AddProduct extends Component
@@ -19,6 +20,8 @@ class AddProduct extends Component
     public $attributeOptions;
     public $attribute_id;
     public $selectedAttribute = 0;
+    public $subjects;
+    public $subject_id;
 
     public function changeSelectedAttribute($id)
     {
@@ -33,6 +36,7 @@ class AddProduct extends Component
             'description' => 'required',
             'category_id' => 'required',
             'attribute_id' => 'required',
+            'subject_id' => 'required',
         ]);
 
         try {
@@ -42,6 +46,7 @@ class AddProduct extends Component
                 'description' => $this->description,
                 'category_id' => $this->category_id,
                 'attribute_id' => $this->attribute_id,
+                'subject_id' => $this->subject_id
             ]);
 
             return $this->redirect('/producten', navigate: true);
@@ -52,9 +57,11 @@ class AddProduct extends Component
     }
     public function render()
     {
+        $this->subjects = Subject::all();
         $this->categories = Category::all();
         $this->attributen = Attribute::all();
         $this->attributeOptions = AttributeOption::all();
+
 
         return view('livewire.products.add-product');
     }

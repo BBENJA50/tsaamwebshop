@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('description');
             $table->foreignId('category_id')->unsigned()->constrained();
             $table->foreignId('attribute_id')->unsigned()->constrained();
+            $table->foreignId('subject_id')->unsigned()->constrained();
+            $table->string('image_path')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

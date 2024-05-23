@@ -6,6 +6,7 @@ use App\Models\Attribute;
 use App\Models\AttributeOption;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Subject;
 use Livewire\Component;
 
 class EditProduct extends Component
@@ -21,6 +22,8 @@ class EditProduct extends Component
     public $attributeOptions;
     public $attribute_id;
     public $selectedAttribute;
+    public $subjects;
+    public $subject_id;
 
     public function mount( $id )
     {
@@ -32,6 +35,8 @@ class EditProduct extends Component
         $this->category_id = $this->product->category_id;
         $this->attribute_id = $this->product->attribute_id;
         $this->selectedAttribute = $this->attribute_id - 1;
+        $this->subject_id = $this->product->subject_id;
+
     }
 
     public function changeSelectedAttribute($id)
@@ -48,6 +53,7 @@ class EditProduct extends Component
             'price' => 'required',
             'category_id' => 'required',
             'attribute_id' => 'required',
+            'subject_id' => 'required',
         ]);
         //edit details
         try {
@@ -57,6 +63,7 @@ class EditProduct extends Component
                 'price' => $this->price,
                 'category_id' => $this->category_id,
                 'attribute_id' => $this->attribute_id,
+                'subject_id' => $this->subject_id,
                 'updated_at' => now()
             ]);
             // redirect
@@ -67,6 +74,7 @@ class EditProduct extends Component
     }
     public function render()
     {
+        $this->subjects = Subject::all();
         $this->categories = Category::all();
         $this->attributen = Attribute::all();
         $this->attributeOptions = AttributeOption::all();

@@ -1,34 +1,31 @@
 <?php
 
-namespace App\Livewire\categories;
+namespace App\Livewire\studyfields;
 
-use App\Models\Category;
+use App\Models\StudyField;
 use Livewire\Component;
 
-class AddCategory extends Component
+class AddStudyField extends Component
 {
     public $name;
 
-    public function saveCategory()
+    public function saveStudyField()
     {
         $this->validate([
             'name' => 'required',
         ]);
 
         try {
-
-            Category::create([
+            StudyField::create([
                 'name' => $this->name,
             ]);
-
-            return $this->redirect('/categorie', navigate: true);
+            return $this->redirect('/richtingen', navigate: true);
         } catch (\Exception $e) {
             dd($e);
         }
     }
-
     public function render()
     {
-        return view('livewire.categories.add-category');
+        return view('livewire.studyfields.add-studyfield');
     }
 }

@@ -43,4 +43,9 @@ class Studiekeuze extends Model
     {
         return $this->hasMany(Child::class);
     }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_studiekeuze_pivot');
+    }
 }

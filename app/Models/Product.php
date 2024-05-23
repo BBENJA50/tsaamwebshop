@@ -17,6 +17,7 @@ class Product extends Model
         'price',
         'category_id',
         'attribute_id',
+        'subject_id',
         'maten',
         'kleur',
     ];
@@ -34,5 +35,15 @@ class Product extends Model
     public function attributeOptions(): HasMany
     {
         return $this->hasMany(AttributeOption::class);
+    }
+
+    public function subject(): BelongsTo
+    {
+        return $this->belongsTo(Subject::class);
+    }
+
+    public function studiekeuzes()
+    {
+        return $this->belongsToMany(Studiekeuze::class, 'product_studiekeuze_pivot');
     }
 }

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Attribute;
 use App\Models\Category;
+use App\Models\Subject;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,12 +21,14 @@ class ProductFactory extends Factory
     {
         $categoryIds=Category::pluck('id')->toArray();
         $attributeIds=Attribute::pluck('id')->toArray();
+        $subjectIds=Subject::pluck('id')->toArray();
         return [
             'name' => fake()->word(),
-            'price' => fake()->numberBetween(100, 1000),
+            'price' => fake()->randomFloat(2,1,100),
             'description' => fake()->sentence(),
             'category_id' => fake()->randomElement($categoryIds),
             'attribute_id' => fake()->randomElement($attributeIds),
+            'subject_id' => fake()->randomElement($subjectIds),
         ];
     }
 }

@@ -69,7 +69,7 @@
                             @endif
                         </td>
                         <td class="px-6 py-4">
-                            {{ $user->category }}
+                            {{ $user->roles()->pluck('name')->implode(', ') }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $user-> is_active == 1 ? 'Actief' : 'Inactief' }}

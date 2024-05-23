@@ -11,6 +11,7 @@ new class extends Component
     public string $first_name = '';
     public string $last_name = '';
     public string $email = '';
+    public string $gsm_number = '';
 
     /**
      * Mount the component.
@@ -20,6 +21,7 @@ new class extends Component
         $this->first_name = Auth::user()->first_name;
         $this->last_name = Auth::user()->last_name;
         $this->email = Auth::user()->email;
+        $this->gsm_number = Auth::user()->gsm_number;
     }
 
     /**
@@ -33,6 +35,7 @@ new class extends Component
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            'gsm_number' => ['string', 'max:255'],
         ]);
 
         $user->fill($validated);
@@ -111,6 +114,13 @@ new class extends Component
                     @endif
                 </div>
             @endif
+        </div>
+
+        <div>
+            <x-input-label for="gsm_number" :value="__('GSM nummer')"/>
+            <x-text-input wire:model="gsm_number" id="gsm_number" name="gsm_number" type="text" class="mt-1 block w-full" required
+                          autofocus autocomplete="gsm_number"/>
+            <x-input-error class="mt-2" :messages="$errors->get('gsm_number')"/>
         </div>
 
         <div class="flex items-center gap-4">

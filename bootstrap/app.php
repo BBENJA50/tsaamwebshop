@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\MiddlewareServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         //
     })
+    ->withProviders([
+        MiddlewareServiceProvider::class, // Register the Middleware Service Provider
+    ])
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

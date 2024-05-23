@@ -10,6 +10,8 @@ use App\Models\Studiekeuze;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use function Laravel\Prompts\password;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +21,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        //users
         User::factory()->create([
             'first_name' => 'Benjamin',
             'last_name' => 'Migom',
@@ -28,6 +31,7 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory(50)->create();
 
+        //categories
         $categories = [
             ['name' => 'Boeken'],
             ['name' => 'Gereedschap'],
@@ -41,6 +45,7 @@ class DatabaseSeeder extends Seeder
             Category::create($category);
         }
 
+        //attributes
         $attributes = [
             ['name' => 'Geen'],
             ['name' => 'Schoenmaten'],
@@ -52,6 +57,7 @@ class DatabaseSeeder extends Seeder
             Attribute::create($attribute);
         }
 
+        //attribute_options
         $attribute_options = [];
         for ($i=36; $i<=47; $i++) {
             $schoenmaten=[ 'value' => $i, 'attribute_id' => 2];
@@ -71,8 +77,7 @@ class DatabaseSeeder extends Seeder
             AttributeOption::create($attribute_option);
         }
 
-        Product::factory(300)->create();
-
+        //call all seeders
         $this->call([
             AcademicYearSeeder::class,
             CampusSeeder::class,
@@ -81,7 +86,27 @@ class DatabaseSeeder extends Seeder
             SubjectSeeder::class,
             StudiekeuzeSeeder::class,
             ChildSeeder::class,
+            ProductSeeder::class,
 
         ]);
+
+        //create roles
+        $adminRole = Role::create(['name' => 'admin']);
+        $userRole = Role::create(['name' => 'user']);
+
+        //create permissions
+        Permission::create(['name' => 'manage backend']);
+
+        //give permissions to roles
+        $adminRole->givePermissionTo('manage backend');
+
+        //assign roles to users
+        $user = User::find(1);
+        $user->assignRole('admin');
+        //assign user role to everyone else
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->assignRole('user');
+        }
     }
 }

@@ -21,11 +21,16 @@ class StudiekeuzeFactory extends Factory
     public function definition(): array
     {
         $academicYearIds=AcademicYear::pluck('id')->toArray();
+        $academicYearNames=AcademicYear::pluck('name')->toArray();
         $campusIds=Campus::pluck('id')->toArray();
+        $campusNames=Campus::pluck('name')->toArray();
         $gradeIds=Grade::pluck('id')->toArray();
+        $gradeNames=Grade::pluck('name')->toArray();
         $studyFieldIds=StudyField::pluck('id')->toArray();
+        $studyFieldNames=StudyField::pluck('name')->toArray();
         return [
-            'name' => fake()->word(),
+//            Name should be created by the values of the following fields:
+            'name' => fake()->randomElement($academicYearNames) . ' ' . fake()->randomElement($campusNames) . ' ' . fake()->randomElement($gradeNames) . ' ' . fake()->randomElement($studyFieldNames),
             'academic_year_id' => fake()->randomElement($academicYearIds),
             'campus_id' => fake()->randomElement($campusIds),
             'grade_id' => fake()->randomElement($gradeIds),

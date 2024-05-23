@@ -4,12 +4,12 @@ namespace App\Livewire\users;
 
 use App\Models\User;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class UserList extends Component
 {
     public $all_users;
     public $is_active;
-
 
     public function mount()
     {
@@ -47,9 +47,10 @@ class UserList extends Component
     {
         return view('livewire.users.user-list',
             [
+                //show roles names
+                'roles' => Role::all(),
                 //Toon alle users die ook verwijderd zijn
                 'users' => User::withTrashed()->paginate(15),
-
             ]);
     }
 }

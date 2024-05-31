@@ -22,11 +22,13 @@ new class extends Component {
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" wire:navigate>
+                    <a href="{{ route('home') }}" wire:navigate>
                         <x-application-logo class="block h-12 w-auto fill-current text-gray-800 dark:text-gray-200"/>
                     </a>
                 </div>
 
+{{--                if user is admin--}}
+                @if( auth()->user()->hasRole('admin'))
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 md:-my-px md:ms-10 md:flex">
                     <x-dropdown align="left">
@@ -91,6 +93,8 @@ new class extends Component {
                         </x-slot>
                     </x-dropdown>
                 </div>
+                @endif
+
             </div>
 
             <!-- Settings Dropdown -->

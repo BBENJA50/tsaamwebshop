@@ -1,167 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Livewire </title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-</head>
-<body>
-<!-- Responsive navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#!">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- Page header with logo and tagline-->
-<header class="py-5 bg-light border-bottom mb-4">
-    <div class="container">
-        <div class="text-center my-5">
-            <h1 class="fw-bolder">Welcome to Blog Home!</h1>
-            <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
-        </div>
-    </div>
-</header>
-<!-- Page content-->
-<div class="container">
-    <div class="row">
-        <!-- Blog entries-->
-        <div class="col-lg-8">
-            <!-- Featured blog post-->
-            <div class="card mb-4">
-                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                <div class="card-body">
-                    <div class="small text-muted">January 1, 2023</div>
-                    <h2 class="card-title">Featured Post Title</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                    <a class="btn btn-primary" href="#!">Read more →</a>
-                </div>
-            </div>
-            <!-- Nested row for non-featured blog posts-->
-            <div class="row">
-                <div class="col-lg-6">
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2023</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2023</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2023</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2023</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Pagination-->
-            <nav aria-label="Pagination">
-                <hr class="my-0" />
-                <ul class="pagination justify-content-center my-4">
-                    <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
-                    <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                    <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">Older</a></li>
-                </ul>
-            </nav>
-        </div>
-        <!-- Side widgets-->
-        <div class="col-lg-4">
-            <!-- Search widget-->
-            <div class="card mb-4">
-                <div class="card-header">Search</div>
-                <div class="card-body">
-                    <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                        <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Categories widget-->
-            <div class="card mb-4">
-                <div class="card-header">Categories</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="#!">Web Design</a></li>
-                                <li><a href="#!">HTML</a></li>
-                                <li><a href="#!">Freebies</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="#!">JavaScript</a></li>
-                                <li><a href="#!">CSS</a></li>
-                                <li><a href="#!">Tutorials</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Side widget-->
-            <div class="card mb-4">
-                <div class="card-header">Side Widget</div>
-                <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-</footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="{{ asset('js/scripts.js') }}"></script>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Welkom, ') . Auth::user()->first_name . ' ' . Auth::user()->last_name . ('.') }}
+        </h2>
+    </x-slot>
 
-</body>
-</html>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <!-- Page content-->
+                    <div class="flex flex-row justify-between content-center text-center items-center">
+                        <h2 class="text-2xl">Om door te gaan, selecteer een kind of voeg een nieuwe toe.</h2>
+                        <a href="{{ route('addchild')  }}"
+                           class=" flex items-center text-white text-decoration-none me-5 fill-white no-underline text-white bg-tsaam-500 hover:bg-tsaam-700 focus:outline-none focus:ring-4 focus:ring-tsaam-300 font-medium rounded-full text-sm px-4 py-2.5 text-center me-2 mb-2 dark:bg-tsaam-500 dark:hover:bg-tsaam-600 dark:focus:ring-tsaam-700one "
+                        >Voeg toe
+                            <svg class="ps-2 text-white" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 448 512">
+                                <path
+                                    d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="flex flex-wrap">
+                        @foreach( Auth::user() -> children as $child )
+                            <div class="flex flex-col w-1/3 max-w-sm">
+                                <div
+                                    class="flex h-full flex-col m-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                    <a href="{{ route('productList', ['childId' => $child->id]) }}">
+                                        <img class="rounded-t-lg p-3"
+                                             @if( $child->profile_photo_path) src="{{ $child->profile_photo_path }}"
+                                             @else src="{{ asset('build/assets/images/children/'. mt_rand(0,8) . '.jpg') }}"
+                                             @endif alt="child picture"/>
+                                    </a>
+                                    <div class="p-3 flex h-full justify-between flex-col  ">
+                                        <div class="mb-3">
+                                            <div class="flex flex-row justify-between">
+                                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                                    {{ $child->first_name . ' ' . $child -> last_name }}</h5>
+                                                <a href="{{ route('editchild', $child->id) }}" wire:navigate
+                                                   type="button"
+                                                   class="flex items-center text-white text-decoration-none fill-white no-underline bg-tsaam-500 hover:bg-tsaam-700 focus:outline-none focus:ring-4 focus:ring-tsaam-300 font-medium rounded-full text-sm px-2 py-2.5 text-center me-2 mb-2 dark:bg-tsaam-500 dark:hover:bg-tsaam-600 dark:focus:ring-tsaam-700">
+                                                    <svg class="rtl:rotate-180 w-3 h-3 mx-2 text-white"
+                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                        <path
+                                                            d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/>
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $child->studiekeuze->name  }}</p>
+                                        </div>
+                                        <a href="{{ route('productList', ['childId' => $child->id]) }}" wire:navigate type="button"
+                                           class="flex items-center text-white text-decoration-none fill-white no-underline text-white bg-tsaam-500 hover:bg-tsaam-700 focus:outline-none focus:ring-4 focus:ring-tsaam-300 font-medium rounded-full text-sm px-4 py-2.5 text-center me-5 mb-2 dark:bg-tsaam-500 dark:hover:bg-tsaam-600 dark:focus:ring-tsaam-700">
+                                            Selecteer en ga verder
+                                            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
+                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                      stroke-linejoin="round"
+                                                      stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

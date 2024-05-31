@@ -36,7 +36,12 @@ new #[Layout('layouts.guest')] class extends Component
 
         Auth::login($user);
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+//        if user is admin
+        if (auth()->user()->hasRole('admin')) {
+            $this->redirect(route('dashboard', absolute: false), navigate: true);
+        } else {
+            $this->redirect(route('home', absolute: false), navigate: true);
+        }
     }
 }; ?>
 

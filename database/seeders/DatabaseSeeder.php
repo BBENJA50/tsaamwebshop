@@ -29,6 +29,13 @@ class DatabaseSeeder extends Seeder
             'gsm_number' => '0471234567',
             'password' => '12345678',
         ]);
+        User::factory()->create([
+            'first_name' => 'Benjamin',
+            'last_name' => 'Migom',
+            'email' => 'test@hotmail.be',
+            'gsm_number' => '0471234567',
+            'password' => '12345678',
+        ]);
         User::factory(50)->create();
 
         //categories

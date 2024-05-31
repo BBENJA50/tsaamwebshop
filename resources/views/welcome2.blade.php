@@ -30,13 +30,13 @@
 {{--    Login--}}
     <div class="mt-10  ">
         <a href="{{ route('login') }}"
-           class="text-4xl bg-tsaam-500 border-2 border-tsaam-700 px-8 py-2 font-bold no-underline hover:no-underline hover:text-tsaam-400 rounded-t-3xl hover:bg-tsaam-600 dark:hover:bg-tsaam-700 dark:bg-tsaam-800 dark:text-tsaam-500 dark:hover text-white">Login</a>
+           class="text-4xl bg-tsaam-500 border-2 border-tsaam-700 px-8 py-2 font-bold no-underline hover:no-underline hover:text-tsaam-400 rounded-xl hover:bg-tsaam-600 dark:hover:bg-tsaam-700 dark:bg-tsaam-800 dark:text-tsaam-500 dark:hover text-white">Login</a>
     </div>
 
 {{--    Registreer--}}
     <div class="mt-12 ">
         <a href="{{ route('register') }}"
-           class="text-4xl bg-tsaam-500 border-2 border-tsaam-700 px-8 py-2 font-bold no-underline hover:no-underline hover:text-tsaam-400 rounded-b-3xl hover:bg-tsaam-600 dark:hover:bg-tsaam-700 dark:bg-tsaam-800 dark:text-tsaam-500 dark:hover text-white">Registreer</a>
+           class="text-4xl bg-tsaam-500 border-2 border-tsaam-700 px-8 py-2 font-bold no-underline hover:no-underline hover:text-tsaam-400 rounded-xl hover:bg-tsaam-600 dark:hover:bg-tsaam-700 dark:bg-tsaam-800 dark:text-tsaam-500 dark:hover text-white">Registreer</a>
     </div>
 
 </div>

@@ -1,26 +1,27 @@
 <?php
 
-use App\Livewire\AddRole;
-use App\Livewire\categories\AddCategory;
-use App\Livewire\categories\CategoryList;
-use App\Livewire\categories\EditCategory;
-use App\Livewire\children\AddChild;
-use App\Livewire\children\ChildList;
-use App\Livewire\children\EditChild;
-use App\Livewire\EditRole;
-use App\Livewire\products\AddProduct;
-use App\Livewire\products\EditProduct;
-use App\Livewire\products\ProductList;
-use App\Livewire\roles\RolesList;
-use App\Livewire\studiekeuzes\AddStudiekeuze;
-use App\Livewire\studiekeuzes\StudiekeuzeList;
-use App\Livewire\studyfields\AddStudyField;
-use App\Livewire\studyfields\StudyFieldList;
-use App\Livewire\subjects\AddSubject;
-use App\Livewire\subjects\SubjectList;
-use App\Livewire\users\AddUser;
-use App\Livewire\users\EditUser;
-use App\Livewire\users\UserList;
+use App\Livewire\admin\categories\AddCategory;
+use App\Livewire\admin\categories\CategoryList;
+use App\Livewire\admin\categories\EditCategory;
+use App\Livewire\admin\children\AddChild;
+use App\Livewire\admin\children\ChildList;
+use App\Livewire\admin\children\EditChild;
+use App\Livewire\admin\products\AddProduct;
+use App\Livewire\admin\products\EditProduct;
+use App\Livewire\admin\products\ProductList;
+use App\Livewire\admin\roles\AddRole;
+use App\Livewire\admin\roles\EditRole;
+use App\Livewire\admin\roles\RolesList;
+use App\Livewire\admin\studiekeuzes\AddStudiekeuze;
+use App\Livewire\admin\studiekeuzes\EditStudiekeuze;
+use App\Livewire\admin\studiekeuzes\StudiekeuzeList;
+use App\Livewire\admin\studyfields\AddStudyField;
+use App\Livewire\admin\studyfields\StudyFieldList;
+use App\Livewire\admin\subjects\AddSubject;
+use App\Livewire\admin\subjects\SubjectList;
+use App\Livewire\admin\users\AddUser;
+use App\Livewire\admin\users\EditUser;
+use App\Livewire\admin\users\UserList;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome2');
@@ -29,61 +30,72 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-//admin routes
+Route::view('home', 'home')
+    ->middleware(['auth'])
+    ->name('home');
+
+//ProductList route showing only products with studiekeuze of current child
+Route::get('/producten/{childId?}', ProductList::class)
+    ->name('productList');
+
+Route::get('/edit/kind/{id}', EditChild::class)
+    ->name('editchild', ChildList::class);
+Route::get('/nieuw/kind', AddChild::class)
+    ->name('addchild');
+
+//admin routes ---------------------------------------------------------
 Route::middleware(['auth', 'checkRole:admin'])->group(function () {
 
-    Route::view('dashboard', 'dashboard')
+    Route::view('admin/dashboard', 'dashboard')
         ->middleware(['auth', 'verified'])
         ->name('dashboard');
 
-    Route::get('/rollen', RolesList::class)
+    Route::get('admin/rollen', RolesList::class)
         ->name('rollen');
-    Route::get('/nieuw/rol', AddRole::class)
+    Route::get('admin/nieuw/rol', AddRole::class)
         ->name('addrole');
-    Route::get('/edit/rol/{id}', EditRole::class)
+    Route::get('admin/edit/rol/{id}', EditRole::class)
         ->name('editrole');
 
-    Route::get('/gebruikers', UserList::class)
+    Route::get('admin/gebruikers', UserList::class)
         ->name('gebruikers');
-    Route::get('/nieuw/gebruiker', AddUser::class)
+    Route::get('admin/nieuw/gebruiker', AddUser::class)
         ->name('adduser');
-    Route::get('/edit/gebruiker/{id}', EditUser::class)
+    Route::get('admin/edit/gebruiker/{id}', EditUser::class)
         ->name('edituser');
 
-    Route::get('/producten', ProductList::class)
+    Route::get('admin/kinderen', ChildList::class)
+        ->name('children');
+
+    Route::get('admin/producten', ProductList::class)
         ->name('producten');
-    Route::get('/nieuw/product', AddProduct::class)
+    Route::get('admin/nieuw/product', AddProduct::class)
         ->name('addproduct');
-    Route::get('/edit/product/{id}', EditProduct::class)
+    Route::get('admin/edit/product/{id}', EditProduct::class)
         ->name('editproduct');
 
-    Route::get('/categorie', CategoryList::class)
+    Route::get('admin/categorie', CategoryList::class)
         ->name('categorie');
-    Route::get('/nieuw/categorie', AddCategory::class)
+    Route::get('admin/nieuw/categorie', AddCategory::class)
         ->name('addcategory');
-    Route::get('/edit/categorie/{id}', EditCategory::class)
+    Route::get('admin/edit/categorie/{id}', EditCategory::class)
         ->name('editcategory');
 
-    Route::get('/kinderen', ChildList::class)
-        ->name('children');
-    Route::get('/nieuw/kind', AddChild::class)
-        ->name('addchild');
-    Route::get('/edit/kind/{id}', EditChild::class)
-        ->name('editchild');
-
-    Route::get('/studiekeuzes', StudiekeuzeList::class)
+    Route::get('admin/studiekeuzes', StudiekeuzeList::class)
         ->name('studiekeuzes');
-    Route::get('/nieuw/studiekeuze', AddStudiekeuze::class)
+    Route::get('admin/nieuw/studiekeuze', AddStudiekeuze::class)
         ->name('addstudiekeuze');
+    Route::get('admin/edit/studiekeuze', EditStudiekeuze::class)
+        ->name('editstudiekeuze');
 
-    Route::get('/richtingen', StudyFieldList::class)
+    Route::get('admin/richtingen', StudyFieldList::class)
         ->name('studyfields');
-    Route::get('/nieuw/richting', AddStudyField::class)
+    Route::get('admin/nieuw/richting', AddStudyField::class)
         ->name('addstudyfield');
 
-    Route::get('/vakken', SubjectList::class)
+    Route::get('admin/vakken', SubjectList::class)
         ->name('subjects');
-    Route::get('/nieuw/vak', AddSubject::class)
+    Route::get('admin/nieuw/vak', AddSubject::class)
         ->name('addsubject');
 
 });

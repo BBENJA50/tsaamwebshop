@@ -32,6 +32,18 @@ new class extends Component {
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 md:-my-px md:ms-10 md:flex">
                     <x-dropdown align="left">
+                        <x-slot name="trigger" >
+                            <x-nav-link :href="route('dashboard')" wire:navigate :active="request()->routeIs('dashboard') || request()->routeIs('dashboard') || request()->routeIs('dashboard')" class="text-decoration-none pt-4 pb-2 ">
+                                {{ __('Dashboard') }}
+                            </x-nav-link>
+                        </x-slot>
+                        <x-slot name="content" align="right">
+                            <div class="flex flex-col ">
+
+                            </div>
+                        </x-slot>
+                    </x-dropdown>
+                    <x-dropdown align="left">
                         <x-slot name="trigger">
                             <x-nav-link :href="route('producten')" wire:navigate :active="request()->routeIs('producten') || request()->routeIs('categorie')" class="text-decoration-none pt-4 pb-2 ">
                                 {{ __('Producten') }}

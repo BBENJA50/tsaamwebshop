@@ -22,7 +22,7 @@ class AddStudiekeuze extends Component
     public $study_fields;
     public $study_field_id;
     public $createNew = false;
-    public $products;
+    public $products =[];
     public $selectedProducts = [];
     public $selectedAcademicYear = 3;
     public $selectedCampus = 1;
@@ -49,13 +49,25 @@ class AddStudiekeuze extends Component
         $this->name = ( $campus ? $campus->name : '') . ' - ' . ($grade ? $grade->name : '') . ' - ' . ($studyField ? $studyField->name : '');
     }
 
-    public function selectProduct($product_id)
+    public function selectProduct($productId)
     {
-        if (in_array($product_id, $this->selectedProducts)) {
-            unset($this->selectedProducts[array_search($product_id, $this->selectedProducts)]);
-        } else {
-            $this->selectedProducts[] = $product_id;
+        if (!in_array($productId, $this->selectedProducts)) {
+            $this->selectedProducts[] = $productId;
         }
+    }
+    public function removeProduct($productId)
+    {
+        $this->selectedProducts = array_values(array_filter($this->selectedProducts, function ($item) use ($productId) {
+            return $item != $productId;
+        }));
+    }
+    public function moveSelectedProducts()
+    {
+        // Convert $products collection to an array before using array_diff
+        $productsArray = $this->products->toArray();
+        dd($productsArray);
+        $this->selectedProducts = array_merge($this->selectedProducts, array_diff($productsArray, $this->selectedProducts));
+
     }
     public function updating($key): void
     {
@@ -78,7 +90,10 @@ class AddStudiekeuze extends Component
             ]);
 
             foreach ($this->selectedProducts as $product_id) {
-                $studiekeuze->products()->attach($product_id);
+                // Option 1: Filter for integers
+                if (is_numeric($product_id)) {
+                    $studiekeuze->products()->attach($product_id);
+                }
             }
 
             if ($this->createNew) {
@@ -86,7 +101,7 @@ class AddStudiekeuze extends Component
                 $this->reset(['campus_id', 'name', 'grade_id', 'academic_year_id', 'study_field_id', 'createNew']);
                 session()->flash('message', 'Studiekeuze successfully created.');
             } else {
-                return redirect('/studiekeuzes');
+                return redirect('/admin/studiekeuzes');
             }
         } catch (\Exception $e) {
             dd($e);

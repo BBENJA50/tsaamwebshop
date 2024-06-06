@@ -11,9 +11,13 @@ use App\Models\Product;
 use App\Models\Studiekeuze;
 use App\Models\Subject;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
-class AddProduct extends Component
+
+class AdminAddProduct extends Component
 {
+    use WithFileUploads;
+
     public $name;
     public $price;
     public $description;
@@ -30,6 +34,7 @@ class AddProduct extends Component
     public $academic_years;
     public $selectedAcademicYear = 3;
     public $campusses;
+    public $image;
     public $selectedCampus = 1;
 
 
@@ -52,11 +57,12 @@ class AddProduct extends Component
             'name' => 'required',
             'price' => 'required',
             'description' => 'required',
-            'category_id' => 'required',
-            'attribute_id' => 'required',
+            'attribute_id'=> 'required',
             'subject_id' => 'required',
-
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $imageName = $this->name . date('d-m-Y-H-i') ;
 
         try {
             $product =Product::create([
@@ -66,13 +72,19 @@ class AddProduct extends Component
                 'category_id' => $this->category_id,
                 'attribute_id' => $this->attribute_id,
                 'subject_id' => $this->subject_id,
+                'image' => $imageName . '.' . $this->image->extension(),
             ]);
+
+            $this->image->storeAs('public/images', $imageName . '.' . $this->image->extension());
+            $product->image = $imageName . '.' . $this->image->extension();
+            $product->save();
+
 
 
             foreach ($this->selectedStudiekeuzes as $key => $value) {
                 $product->studiekeuzes()->attach($value);
             }
-            return $this->redirect('/producten', navigate: true);
+            return $this->redirect('/admin/producten', navigate: true);
 
         } catch (\Exception $e) {
             dd($e);

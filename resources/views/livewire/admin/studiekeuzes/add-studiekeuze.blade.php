@@ -116,39 +116,29 @@
                             </div>
                         </div>
                         {{--producten selecteren--}}
-                        <div class="grid md:grid-cols-2 md:gap-6">
-                            <div class="relative z-0 w-full mb-3 group overflow-auto h-100">
-                                <br>Selecteer de producten:</br>
-                                <select wire:click="selectProduct"
-                                    class="h-60 w-full border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md"
-                                    wire:model="selectedProducts" multiple>
-                                    @foreach($products as $product)
-                                        @if( $search === "" || Str::contains($product->name, $search) )
-                                            <option value="{{ $product->id }}">{{ $product->name }}
+                            <div class="flex flex-row">
+                                <div class="w-1/2 ">
+                                    <label for="availableProducts">Beschikbare producten:</label>
+                                    <select wire:model="products" id="availableProducts" class="h-60 w-full border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md" multiple>
+                                        @foreach($products as $product)
+                                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mx-4 justify-center mt-4">
+                                    <button wire:click.prevent="moveSelectedProducts" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700">+</button>
+                                </div>
+                                <div class="w-1/2">
+                                    <label for="selectedProducts">Geselecteerde producten:</label>
+                                    <select wire:model="selectedProducts" id="selectedProducts" class="h-60 w-full border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md" multiple>
+                                        @foreach($selectedProducts as $selectedProduct)
+                                            <option value="{{ $selectedProduct }}">
+                                                {{ htmlspecialchars(Product::find($selectedProduct)->name) }}
                                             </option>
-                                        @endif
-
-                                    @endforeach
-                                </select>
-                                @error('selectedProducts')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                @enderror
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <div class="relative z-0 w-full mb-3 group overflow-auto h-100">
-                                <br>Gekozen producten:</br>
-                                <select
-                                    class="h-60 w-full border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md"
-                                    wire:model="selectedProducts" multiple>
-                                    @foreach($selectedProducts as $selectedProduct)
-                                        <option value="{{ $selectedProduct->id }}">{{ $selectedProduct->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('selectedProducts')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
 
                         @if(session('message'))
                             <p class="text-green-500 text-xs mt-1">{{ session('message') }}</p>

@@ -6,9 +6,9 @@ use App\Livewire\admin\categories\EditCategory;
 use App\Livewire\admin\children\AddChild;
 use App\Livewire\admin\children\ChildList;
 use App\Livewire\admin\children\EditChild;
-use App\Livewire\admin\products\AddProduct;
-use App\Livewire\admin\products\EditProduct;
-use App\Livewire\admin\products\ProductList;
+use App\Livewire\admin\products\AdminAddProduct;
+use App\Livewire\admin\products\AdminEditProduct;
+use App\Livewire\admin\products\AdminProductList;
 use App\Livewire\admin\roles\AddRole;
 use App\Livewire\admin\roles\EditRole;
 use App\Livewire\admin\roles\RolesList;
@@ -22,6 +22,9 @@ use App\Livewire\admin\subjects\SubjectList;
 use App\Livewire\admin\users\AddUser;
 use App\Livewire\admin\users\EditUser;
 use App\Livewire\admin\users\UserList;
+use App\Livewire\public\products\AddProduct;
+use App\Livewire\public\products\EditProduct;
+use App\Livewire\public\products\ProductList;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome2');
@@ -67,11 +70,11 @@ Route::middleware(['auth', 'checkRole:admin'])->group(function () {
     Route::get('admin/kinderen', ChildList::class)
         ->name('children');
 
-    Route::get('admin/producten', ProductList::class)
+    Route::get('admin/producten', AdminProductList::class)
         ->name('producten');
-    Route::get('admin/nieuw/product', AddProduct::class)
+    Route::get('admin/nieuw/product', AdminAddProduct::class)
         ->name('addproduct');
-    Route::get('admin/edit/product/{id}', EditProduct::class)
+    Route::get('admin/edit/product/{id}', AdminEditProduct::class)
         ->name('editproduct');
 
     Route::get('admin/categorie', CategoryList::class)

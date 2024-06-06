@@ -55,9 +55,19 @@
                             {{ $studiekeuze->name }}
                         </th>
                         <td class="px-3 py-4">
-                            @foreach( $studiekeuze->products as $product)
-                                <br> {{ $product->name }}
-                            @endforeach
+                            @if( $studiekeuze->products->count() >3)
+                                <ul class="overflow-y-scroll px-0 mx-0 max-h-24">
+                                    @foreach( $studiekeuze->products as $product)
+                                        <li>{{ $product->name }}</li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <ul class="px-0 mx-0">
+                                    @foreach( $studiekeuze->products as $product)
+                                        <li>{{ $product->name }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </td>
                         <td class="px-3 py-4">
                             {{ $studiekeuze->academicyear->name }}

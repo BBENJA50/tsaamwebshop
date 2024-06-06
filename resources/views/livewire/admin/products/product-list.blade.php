@@ -25,6 +25,9 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="ps-6 py-3">
+                        Foto
+                    </th>
+                    <th scope="col" class="ps-6 py-3">
                         Naam
                     </th>
                     <th scope="col" class="px-3 py-3">
@@ -53,6 +56,9 @@
                 <tbody>
                 @forelse( $products as $product )
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="ps-2 py-4">
+                            <img @if( $product->image) src="{{ asset('storage/public/images/' . $product->image) }}" @else src="{{ asset('build/assets/images/products/'. mt_rand(0,9) . '.jpg') }}" @endif  alt="{{ $product->image }}" class="w-20 h-20">
+                        </td>
                         <th scope="row"
                             class="ps-6  py-4 font-extrabold text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $product->name }}
@@ -67,9 +73,21 @@
                             {{ $product->subject->name }}
                         </td>
                         <td class="px-6 py-4">
-                            @foreach( $product->studiekeuzes as $studiekeuze)
-                             <br>   {{ $studiekeuze->name }} </br>
-                            @endforeach
+                            @if( count($product->studiekeuzes) > 3)
+                                <ul class="overflow-y-scroll px-0 mx-0 h-20">
+                                    @foreach( $product->studiekeuzes as $studiekeuze)
+                                        <li class="px-0 mx-0">{{ $studiekeuze->name }}</li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <ul class="px-0 mx-0 h-20">
+                                    @foreach( $product->studiekeuzes as $studiekeuze)
+                                        <li class="px-0 mx-0">   {{ $studiekeuze->name }} </li>
+                                    @endforeach
+                                </ul>
+
+                            @endif
+
                         </td>
                         <td class="px-6 py-4">
                             {{ $product->attribute->name }}
@@ -95,8 +113,9 @@
                 </tbody>
             </table>
             <div class="bg-white p-2 px-4 border-b dark:bg-gray-800">
-                {{ $products->links() }}
+
             </div>
+            {{ $products->links() }}
         </div>
     </div>
 </div>

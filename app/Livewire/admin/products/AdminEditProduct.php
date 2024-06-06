@@ -12,7 +12,7 @@ use App\Models\Studiekeuze;
 use App\Models\Subject;
 use Livewire\Component;
 
-class EditProduct extends Component
+class AdminEditProduct extends Component
 {
     public $product_id;
     public Product $product;
@@ -93,7 +93,7 @@ class EditProduct extends Component
             $product->studiekeuzes()->sync($this->selectedStudiekeuzes);
 
             // redirect
-            $this->redirect('/producten', navigate: true);
+            $this->redirect('/admin/producten', navigate: true);
         } catch (\Exception $th) {
             dd($th);
         }

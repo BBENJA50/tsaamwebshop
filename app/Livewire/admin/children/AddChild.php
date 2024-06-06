@@ -35,7 +35,7 @@ class AddChild extends Component
             session()->flash('message', 'Child added successfully.');
 //            if user is admin
             if (Auth::user()->hasRole('admin')) {
-                return $this->redirect('/kinderen', navigate: true);
+                return $this->redirect('/admin/kinderen', navigate: true);
             } else{
                 return $this->redirect('/home', navigate: true);
             }

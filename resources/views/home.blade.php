@@ -30,7 +30,7 @@
                                     <a href="{{ route('productList', ['childId' => $child->id]) }}">
                                         <img class="rounded-t-lg p-3"
                                              @if( $child->profile_photo_path) src="{{ $child->profile_photo_path }}"
-                                             @else src="{{ asset('build/assets/images/children/'. mt_rand(0,8) . '.jpg') }}"
+                                             @else src="{{ asset('build/assets/images/children/'. '1' . '.jpg') }}"
                                              @endif alt="child picture"/>
                                     </a>
                                     <div class="p-3 flex h-full justify-between flex-col  ">

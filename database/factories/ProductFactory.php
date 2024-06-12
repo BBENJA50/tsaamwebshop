@@ -28,6 +28,7 @@ class ProductFactory extends Factory
             'description' => fake()->sentence(),
             'category_id' => fake()->randomElement($categoryIds),
             'attribute_id' => fake()->randomElement($attributeIds),
+            'image' => 'Mooi Boek11-06-2024-12-13.jpg',
             'subject_id' => fake()->randomElement($subjectIds),
         ];
     }

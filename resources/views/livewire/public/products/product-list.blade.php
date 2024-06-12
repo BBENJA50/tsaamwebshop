@@ -2,12 +2,13 @@
     <div class="flex flex-row justify-between items-center content-center py-0 my-0">
         <div>
             <div class="flex flex-row">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="size-5 sm:size-6 ">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="size-5 sm:size-6">
                     <path
                         d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z"/>
                 </svg>
                 <a href="{{ route('home') }}" class="no-underline ms-3 text-tsaam-500 hover:text-tsaam-600">Terug naar
-                    kinderen</a></div>
+                    kinderen</a>
+            </div>
             <p class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight m-0">
                 @if($child)
                     {{ $child->first_name }} {{ $child->last_name }} - {{ $child->studiekeuze->name }}
@@ -16,16 +17,20 @@
                 @endif
             </p>
         </div>
+        <a class="bg-tsaam-500 px-2 my-2 py-2 no-underline rounded border-tsaam-700 border text-white m-0"
+           href="{{ route('shoppingCart') }}">
+            <div class="flex flex-row items-center ">
 
-        <p class="bg-tsaam-500 px-4 py-2 rounded text-white m-0">
-
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-10 h-10 fill-white">
-                <path
-                    d="M253.3 35.1c6.1-11.8 1.5-26.3-10.2-32.4s-26.3-1.5-32.4 10.2L117.6 192H32c-17.7 0-32 14.3-32 32s14.3 32 32 32L83.9 463.5C91 492 116.6 512 146 512H430c29.4 0 55-20 62.1-48.5L544 256c17.7 0 32-14.3 32-32s-14.3-32-32-32H458.4L365.3 12.9C359.2 1.2 344.7-3.4 332.9 2.7s-16.3 20.6-10.2 32.4L404.3 192H171.7L253.3 35.1zM192 304v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16zm96-16c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16zm128 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16z"/>
-            </svg>
-        </p>
+                <p class="bg-tsaam-600 rounded-full px-1">{{ $myCount}}</p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-10 h-6 fill-white">
+                    <path
+                        d="M253.3 35.1c6.1-11.8 1.5-26.3-10.2-32.4s-26.3-1.5-32.4 10.2L117.6 192H32c-17.7 0-32 14.3-32 32s14.3 32 32 32L83.9 463.5C91 492 116.6 512 146 512H430c29.4 0 55-20 62.1-48.5L544 256c17.7 0 32-14.3 32-32s-14.3-32-32-32H458.4L365.3 12.9C359.2 1.2 344.7-3.4 332.9 2.7s-16.3 20.6-10.2 32.4L404.3 192H171.7L253.3 35.1zM192 304v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16zm96-16c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16zm128 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16z"/>
+                </svg>
+            </div>
+        </a>
     </div>
 </x-slot>
+
 <div>
     <div id="exampleWrapper" class="overflow-hidden grid grid-cols-8 gap-4 pt-2 pb-16">
         <div class="col-start-2 col-span-6">
@@ -34,26 +39,36 @@
                     <div class="relative shadow-md sm:rounded-lg">
                         <div class="bg-white p-4 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg sm:rounded-lg">
                             <p class="text-xl font-semibold border-b-4 border-tsaam-500 rounded text-center mb-10">
-                                FILTERS</p>
+                                FILTERS
+                            </p>
                             <div class="mb-4">Vakken</div>
                             <h3 class="text-xl font-semibold mb-4">{{ __('Categorieën') }}</h3>
-                            <ul>
-                                <li>
-                                    <a href="#" wire:click.prevent="filterByCategory(null)"
-                                       class="{{ $category_id ? '' : 'font-bold' }}">{{ __('Alle categorieën') }}</a>
-                                </li>
-                                @foreach($categories as $category)
-                                    <li>
-                                        <a href="#" wire:click.prevent="filterByCategory({{ $category->id }})"
-                                           class="{{ $category_id === $category->id ? 'font-bold' : '' }}">
-                                            {{ $category->name }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <div class="mb-4">Nog iets
-                            </div>
+                            @foreach($categories as $category)
+                                <div class="mb-4">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" name="category_id" id="category_id" class="form-checkbox"
+                                               wire:model="category_id" value="{{ $category->id }}">
+                                        <span class="ml-2">{{ $category->name }}</span>
+                                    </label>
+                                </div>
+                            @endforeach
+                            {{--                            <div class="mb-4">Nog iets--}}
+                            {{--                            </div>--}}
                         </div>
+                    </div>
+                    <div class="mt-4 flex rounded items-center text-center content-center align-middle bg-blue-500 text-white text-sm font-bold px-4 py-3"
+                         style="display: none"
+                         x-data="{show : false}"
+                         x-show="show"
+                         x-transition
+                         x-init="@this.on('added', () => {
+                             show = true;
+                             setTimeout(() => {show = false;}, 2000)
+                         })">
+                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+
+                        <p class="m-0 p-0">{{ session('message') }}</p>
+
                     </div>
                 </div>
                 <div class="col-span-5">
@@ -69,13 +84,49 @@
                                 @endif
                             @endif
                             <div class="flex flex-wrap justify-start">
-                                @forelse($products as $product)
-                                    <div class="w-1/4">
-                                        <livewire:public.products.product-card :product="$product" :child="$child"/>
+
+                                @foreach($products as $product)
+                                    <div class="w-1/4" wire:key="{{ $product->id }}">
+                                        <div class="p-3 flex h-full justify-between flex-col">
+                                            <div
+                                                class="flex h-full flex-col max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                                <a href="#">
+                                                    <img class="rounded-t-lg h-48"
+                                                         @if( $product->image) @if( Storage::exists('public/images/' . $product->image)) src="{{ asset('storage/public/images/' . $product->image) }}"
+                                                         @else src="{{ $product->image  }}" @endif
+                                                         @else src="{{ asset('build/assets/images/products/'. mt_rand(0,9) . '.jpg') }}"
+                                                         @endif alt="{{ $product->name }}"/>
+                                                </a>
+                                                <div class="p-3 pt-1 h-full flex flex-col justify-between">
+                                                    <div>
+                                                        <p class="mb-2 font-normal text-xs text-gray-700 dark:text-gray-400">{{$category->name }}</p>
+                                                        <div class="flex flex-row justify-between">
+                                                            <a href="#" class="no-underline">
+                                                                <h5 class=" text-xl font-bold no-underline  text-gray-900 dark:text-white">{{$product->name}}</h5>
+                                                            </a>
+                                                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{$product->price}}
+                                                                €</p>
+                                                        </div>
+                                                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{$product->description}}</p>
+                                                    </div>
+
+                                                    <div class="flex flex-row justify-between items-end">
+                                                        <div>
+                                                            <button wire:click="addProductToCart({{ $product->id }})"
+                                                                    class="inline-flex justify-center items-center px-3 py-2 text-sm font-medium text-center text-white bg-tsaam-500 rounded-lg hover:bg-tsaam-600 focus:ring-4 focus:outline-none focus:ring-tsaam-300 dark:bg-tsaam-600 dark:hover:bg-tsaam-700 dark:focus:ring-tsaam-800">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="h-6 w-5 fill-white" viewBox="0 0 576 512">
+                                                                    <path
+                                                                        d="M24 0C10.7 0 0 10.7 0 24S10.7 48 24 48H69.5c3.8 0 7.1 2.7 7.9 6.5l51.6 271c6.5 34 36.2 58.5 70.7 58.5H488c13.3 0 24-10.7 24-24s-10.7-24-24-24H199.7c-11.5 0-21.4-8.2-23.6-19.5L170.7 288H459.2c32.6 0 61.1-21.8 69.5-53.3l41-152.3C576.6 57 557.4 32 531.1 32H360V134.1l23-23c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-64 64c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l23 23V32H120.1C111 12.8 91.6 0 69.5 0H24zM176 512a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm336-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z"/>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                @empty
-                                    <p>{{ __('Geen producten gevonden.') }}</p>
-                                @endforelse
+                                @endforeach
                             </div>
                         </div>
                     </div>

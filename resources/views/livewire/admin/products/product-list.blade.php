@@ -57,7 +57,9 @@
                 @forelse( $products as $product )
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <td class="ps-2 py-4">
-                            <img @if( $product->image) src="{{ asset('storage/public/images/' . $product->image) }}" @else src="{{ asset('build/assets/images/products/'. mt_rand(0,9) . '.jpg') }}" @endif  alt="{{ $product->image }}" class="w-20 h-20">
+                            <img @if( $product->image) @if( Storage::exists('public/images/' . $product->image)) src="{{ asset('storage/public/images/' . $product->image) }}" @else src="{{ $product->image  }}" @endif
+                            @else src="{{ asset('build/assets/images/products/'. mt_rand(0,9) . '.jpg') }}"
+                                 @endif alt="{{ $product->name }}" class="w-20 h-20">
                         </td>
                         <th scope="row"
                             class="ps-6  py-4 font-extrabold text-gray-900 whitespace-nowrap dark:text-white">

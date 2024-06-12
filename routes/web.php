@@ -25,6 +25,7 @@ use App\Livewire\admin\users\UserList;
 use App\Livewire\public\products\AddProduct;
 use App\Livewire\public\products\EditProduct;
 use App\Livewire\public\products\ProductList;
+use App\Livewire\public\products\ShoppingCart;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome2');
@@ -40,6 +41,14 @@ Route::view('home', 'home')
 //ProductList route showing only products with studiekeuze of current child
 Route::get('/producten/{childId?}', ProductList::class)
     ->name('productList');
+
+Route::get('/shopping-cart/{childId?}', ShoppingCart::class)
+    ->name('shoppingCart');
+
+Route::post('/producten/{childId?}', [ShoppingCart::class, 'addToCart'])
+    ->name('cart.store');
+//Route::get('/winkelwagen', ShoppingCart::class)
+//    ->name('shoppingCart');
 
 Route::get('/edit/kind/{id}', EditChild::class)
     ->name('editchild', ChildList::class);

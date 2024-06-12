@@ -2,17 +2,20 @@
 
 namespace App\Livewire\public\products;
 
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\Studiekeuze;
-use Exception;
-use http\Env\Request;
+use App\Models\Category;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class ProductList extends Component
 {
     public $child;
-    public $category_id;
+    public $category_id = [];
+    public $studiekeuze_id;
+    public $cart = [];
+    public $totalItems = 0;
+    public $cartTotal = 0;
+    public $myCount= 0;
 
     public function mount($childId = null)
     {
@@ -23,78 +26,107 @@ class ProductList extends Component
                 session()->flash('error', 'Geen kind gevonden');
                 return redirect('/producten');
             }
-        }
-    }
-
-    public function filterByCategory($category_id)
-    {
-        $this->category_id = $category_id;
-    }
-
-    public function addToCart( $id)
-    {
-        $productId = $id;
-        $product = Product::find($productId);
-
-        if (!$product) {
-            return;
+            $this->studiekeuze_id = $this->child->studiekeuze_id;
         }
 
-        $cart = session()->get('cart', []);
+        $this->cart = session()->get('cart', []);
+        $this->myCount = session('myCount', 0);
+        $this->updateCartMetrics();
+    }
 
-        $cart[$productId] = [
-            'name' => $product->name,
-            'price' => $product->price,
-            'quantity' => 1,
-            'image' => $product->image,
-        ];
+    public function filterByCategory(array $selectedCategories)
+    {
+        $this->category_id = $selectedCategories;
+    }
 
-        session()->put('cart', $cart);
-        dd( $cart);
+    public function addProductToCart($productId)
+    {
+        $existingProductIndex = array_search($productId, array_column($this->cart, 'id'));
+
+        $this->myCount++;
+        if ($existingProductIndex !== false)   {
+            $this->cart[$existingProductIndex]['quantity']++;
+        } else {
+            $this->cart[] = [
+                'id' => $productId,
+                'image' => Product::find($productId)->image,
+                'quantity' => 1,
+                'price' => Product::find($productId)->price,
+                'name' => Product::find($productId)->name,
+                'child_id' => $this->child->id ?? null,
+            ];
+        }
+        session()->flash('message', 'Product toegevoegd.');
+
+        session()->put('cart', $this->cart);
+        session()->put('myCount',$this->myCount);
+
+
+        $this->updateCartMetrics();
+
+        $this->dispatch('added');
+    }
+
+    public function updateQuantity($productId, $quantity)
+    {
+        $existingProductIndex = array_search($productId, array_column($this->cart, 'id'));
+
+        if ($existingProductIndex !== false) {
+            $this->cart[$existingProductIndex]['quantity'] = $quantity;
+            if ($this->cart[$existingProductIndex]['quantity'] <= 0) {
+                unset($this->cart[$existingProductIndex]);
+            }
+        }
+
+        session()->put('cart', array_values($this->cart)); // Re-index the array
+        session()->put('myCount', $this->myCount);
+        $this->updateCartMetrics();
+    }
+
+    public function removeProductFromCart($productId)
+    {
+        $this->cart = array_filter($this->cart, function($item) use ($productId) {
+            return $item['id'] !== $productId;
+        });
+
+        session()->put('cart', $this->cart);
+        session()->put('myCount', $this->myCount);
+        $this->updateCartMetrics();
+    }
+
+    public function updateCartMetrics()
+    {
+        $this->cartTotal = 0;
+        $this->totalItems = 0;
+        foreach ($this->cart as $item) {
+            $this->cartTotal += $item['price'] * $item['quantity'];
+            $this->totalItems += $item['quantity'];
+        }
+        $this->myCount = array_sum(array_column($this->cart, 'quantity'));
+        session()->put('myCount', $this->myCount);
+       // $this->render();
     }
 
     public function render()
     {
-        try {
-            $query = Product::query();
+        $query = Product::query();
 
-            if ($this->child) {
-                $query->whereHas('studiekeuzes', function ($query) {
-                    $query->where('studiekeuzes.id', $this->child->studiekeuze->id);
-                });
+        if ($this->child) {
+            $query->whereHas('studiekeuzes', function ($query) {
+                $query->where('studiekeuzes.id', $this->child->studiekeuze->id);
+            });
 
-                if ($this->category_id) {
-                    $query->where('category_id', $this->category_id);
-                }
-
-                $products = $query->get();
-            } else {
-                $products = collect();
+            if (!empty($this->category_id)) {
+                $query->whereIn('category_id', $this->category_id);
             }
-
-            // Toont enkel de categorien die aan de producten voldoen
-            $categories = Category::whereHas('products', function ($query) {
-                if ($this->child) {
-                    $query->whereHas('studiekeuzes', function ($query) {
-                        $query->where('studiekeuzes.id', $this->child->studiekeuze->id);
-                    });
-                }
-            })->get();
-
-            return view('livewire.public.products.product-list', [
-                'studiekeuzes' => Studiekeuze::all(),
-                'products' => $products,
-                'categories' => $categories,
-                'child' => $this->child ?? collect([
-                        'id' => null,
-                        'name' => 'Onbekend',
-                    ]),
-                'category_id' => $this->category_id, // Pass the current category_id to the view
-            ]);
-        } catch (Exception $e) {
-            logger()->error('Error in ProductList component: ' . $e->getMessage());
-            session()->flash('error', 'Er is een fout opgetreden. Probeer het opnieuw.');
-            return redirect('/producten');
         }
+
+        $products = $query->get();
+
+        return view('livewire.public.products.product-list', [
+            'products' => $products,
+            'categories' => Category::all(),
+            'myCount' => $this->myCount
+        ]);
     }
 }

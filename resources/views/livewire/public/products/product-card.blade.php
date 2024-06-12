@@ -1,14 +1,12 @@
 <div class="p-3 flex h-full justify-between flex-col">
     <div
         class="flex h-full flex-col max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        {{--        //Foto--}}
         <a href="#">
             <img class="rounded-t-lg h-48"
                  @if( $product->image) src="{{ asset('storage/public/images/' . $product->image) }}"
                  @else src="{{ asset('build/assets/images/products/'. mt_rand(0,9) . '.jpg') }}"
                  @endif alt="{{ $product->name }}"/>
         </a>
-        {{--        //Body--}}
         <div class="p-3 pt-1 h-full flex flex-col justify-between">
             <div>
                 <p class="mb-2 font-normal text-xs text-gray-700 dark:text-gray-400">{{$category->name }}</p>
@@ -17,15 +15,12 @@
                         <h5 class=" text-xl font-bold no-underline  text-gray-900 dark:text-white">{{$product->name}}</h5>
                     </a>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{$product->price}}€</p>
-
                 </div>
-
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{$product->description}}</p>
             </div>
-            <div class="flex flex-row justify-between items-end ">
-                {{--//Button--}}
+            <div class="flex flex-row justify-between items-end">
                 <div>
-                    <a href="#" wire:click="addToCart({{ $product->id }})"
+                    <a href="#" wire:click="addToCart({{ $product->id }}, $refs.attributes ? $refs.attributes.value : null)"
                        class="inline-flex justify-center items-center px-3 py-2 text-sm font-medium text-center text-white bg-tsaam-500 rounded-lg hover:bg-tsaam-600 focus:ring-4 focus:outline-none focus:ring-tsaam-300 dark:bg-tsaam-600 dark:hover:bg-tsaam-700 dark:focus:ring-tsaam-800">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-5 fill-white" viewBox="0 0 576 512">
                             <path
@@ -33,22 +28,18 @@
                         </svg>
                     </a>
                 </div>
-                {{--            //Attributes?--}}
-                @if( $attribute->id != '1')
-
+                @if($attribute->id != '1')
                     <form class="w-full ms-2">
-                        <select id="countries"
+                        <select id="attributes" x-ref="attributes"
                                 class="w-full bg-gray-50 border border-tsaam-300 text-tsaam-900 text-xs rounded-lg focus:ring-tsaam-500 focus:border-tsaam-500 block p-2.5 dark:bg-tsaam-700 dark:border-tsaam-600 dark:placeholder-tsaam-400 dark:text-white dark:focus:ring-tsaam-500 dark:focus:border-tsaam-500">
                             <option selected>Kies een optie</option>
-                            @foreach( $attribute->attributeOptions as $attributeOption)
+                            @foreach($attribute->attributeOptions as $attributeOption)
                                 <option class="w-full"
                                         value="{{ $attributeOption->value }}">{{ $attributeOption->value }}</option>
                             @endforeach
                         </select>
                     </form>
-
                 @endif
-
             </div>
         </div>
     </div>

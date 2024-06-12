@@ -15,7 +15,7 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        Product::factory(300)->create();
+        Product::factory(50)->create();
 
         //Now we populate the pivot table with vor each studiekeuze we add a random amount of products
         $studiekeuzes = Studiekeuze::all();

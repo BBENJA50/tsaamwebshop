@@ -3,6 +3,7 @@
 namespace App\Livewire\public\products;
 
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class ProductCard extends Component
@@ -14,26 +15,25 @@ class ProductCard extends Component
     public $attributeOptions;
     public $studiekeuze;
 
-    public function addToCart( $id)
+    public function addToCart(Request $request)
     {
-        $cart = session('cart', []);
-        $productId = $id;
+        $productId = $request->input('product_id');
         $product = Product::find($productId);
 
-//        Als product al in cart zit doen we +1 hoeveelheid
-        if (isset($cart[$productId])) {
-            $cart[$productId]['quantity']++;
-        } else {
-            $cart[$productId] = [
-                'id' => $product->id,
-                'name' => $product->name,
-                'price' => $product->price,
-                'quantity' => 1,
-                'image' => $product->image,
-            ];
+        if (!$product) {
+            return redirect()->route('products.index')->with('error', 'Product not found!');
         }
-        session(['cart' => $cart]);
-        return $cart;
+
+        // Add product to cart
+        $cart = session()->get('cart', []);
+        $cart[$productId] = [
+            'name' => $product->name,
+            'price' => $product->price,
+        ];
+        session()->put('cart', $cart);
+
+        dd(session()->get('cart'));
+        return redirect()->route('products.index')->with('success', 'Product added to cart successfully!');
     }
 
     public function render()

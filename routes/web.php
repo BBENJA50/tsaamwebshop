@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Livewire\admin\categories\AddCategory;
 use App\Livewire\admin\categories\CategoryList;
 use App\Livewire\admin\categories\EditCategory;
@@ -54,6 +55,11 @@ Route::get('/edit/kind/{id}', EditChild::class)
     ->name('editchild', ChildList::class);
 Route::get('/nieuw/kind', AddChild::class)
     ->name('addchild');
+
+Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
+Route::post('/checkout', [PaymentController::class, 'processCheckout'])->name('processCheckout');
+Route::get('/success', [PaymentController::class, 'success'])->name('success');
+Route::get('/cancel', [PaymentController::class, 'cancel'])->name('cancel');
 
 //admin routes ---------------------------------------------------------
 Route::middleware(['auth', 'checkRole:admin'])->group(function () {

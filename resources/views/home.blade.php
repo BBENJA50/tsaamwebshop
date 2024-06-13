@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold pt-3 text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Welkom, ') . Auth::user()->first_name . ' ' . Auth::user()->last_name . ('.') }}
         </h2>
     </x-slot>

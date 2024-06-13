@@ -44,6 +44,7 @@ class ProductList extends Component
         $existingProductIndex = array_search($productId, array_column($this->cart, 'id'));
 
         $this->myCount++;
+        //controleer als het product al in de winkelwagen zit
         if ($existingProductIndex !== false)   {
             $this->cart[$existingProductIndex]['quantity']++;
         } else {
@@ -61,7 +62,6 @@ class ProductList extends Component
         session()->put('cart', $this->cart);
         session()->put('myCount',$this->myCount);
 
-
         $this->updateCartMetrics();
 
         $this->dispatch('added');
@@ -78,6 +78,8 @@ class ProductList extends Component
             }
         }
 
+        $this->cart = array_values($this->cart);
+
         session()->put('cart', array_values($this->cart)); // Re-index the array
         session()->put('myCount', $this->myCount);
         $this->updateCartMetrics();
@@ -88,6 +90,8 @@ class ProductList extends Component
         $this->cart = array_filter($this->cart, function($item) use ($productId) {
             return $item['id'] !== $productId;
         });
+
+        $this->cart = array_values($this->cart);
 
         session()->put('cart', $this->cart);
         session()->put('myCount', $this->myCount);
@@ -104,7 +108,6 @@ class ProductList extends Component
         }
         $this->myCount = array_sum(array_column($this->cart, 'quantity'));
         session()->put('myCount', $this->myCount);
-       // $this->render();
     }
 
     public function render()

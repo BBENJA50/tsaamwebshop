@@ -9,6 +9,7 @@ class ShoppingCart extends Component
 {
     public $cart = [];
     public $children = [];
+    public $parent;
     public $child;
     public $studiekeuze_id;
     public $totalItems = 0;
@@ -16,6 +17,8 @@ class ShoppingCart extends Component
 
     public function mount($childId = null)
     {
+        $this->parent = auth()->user();
+        $this->children = $this->parent->children;
         if ($childId) {
             $this->child = auth()->user()->children()->find($childId);
 
@@ -30,37 +33,16 @@ class ShoppingCart extends Component
         }
 
         $this->cart = session()->get('cart', []);
-        $this->children = auth()->user()->children;
-
         $this->updateCartMetrics();
     }
-
-//    public function addToCart($productId)
-//    {
-//        $existingProductIndex = array_search($productId, array_column($this->cart, 'id'));
-//
-//        if ($existingProductIndex !== false && $this->cart[$existingProductIndex]['child_id'] == $this->child->id) {
-//            $this->cart[$existingProductIndex]['quantity']++;
-//        } else {
-//            $this->cart[] = [
-//                'id' => $productId,
-//                'image' => Product::find($productId)->image,
-//                'quantity' => 1,
-//                'price' => Product::find($productId)->price,
-//                'name' => Product::find($productId)->name,
-//                'child_id' => $this->child->id ?? null,  // Include child ID, handle null case
-//            ];
-//        }
-//
-//        session()->put('cart', $this->cart);
-//        $this->updateCartMetrics();
-//    }
 
     public function removeProductFromCart($productId)
     {
         $this->cart = array_filter($this->cart, function($item) use ($productId) {
             return $item['id'] !== $productId;
         });
+
+        $this->cart = array_values($this->cart);
 
         session()->put('cart', $this->cart);
         $this->updateCartMetrics();
@@ -76,6 +58,8 @@ class ShoppingCart extends Component
                 unset($this->cart[$existingProductIndex]);
             }
         }
+
+        $this->cart = array_values($this->cart);
 
         session()->put('cart', array_values($this->cart)); // Re-index the array
         $this->updateCartMetrics();
@@ -94,13 +78,12 @@ class ShoppingCart extends Component
 
     public function render()
     {
-
-
         return view('livewire.public.products.shopping-cart', [
             'cart' => $this->cart,
             'children' => $this->children,
-            $this->updateCartMetrics(),
-
-        ]);
+            'parent' => $this->parent,
+            'child' => $this->child,
+            'totalItems' => $this->totalItems,
+            'cartTotal' => $this->cartTotal,]);
     }
 }

@@ -72,7 +72,7 @@
                             {{ $product->category->name }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $product->subject->name }}
+                            {{ optional($product->subject)->name }}
                         </td>
                         <td class="px-6 py-4">
                             @if( count($product->studiekeuzes) > 3)

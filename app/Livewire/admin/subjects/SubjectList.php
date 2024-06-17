@@ -18,7 +18,7 @@ class SubjectList extends Component
     {
         try {
             Subject::where('id', $id)->delete();
-            return $this->redirect('/vakken', navigate: true);
+            return $this->redirect('/admin/vakken', navigate: true);
         } catch (\Exception $th) {
             dd($th);
         }

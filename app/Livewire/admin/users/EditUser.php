@@ -43,7 +43,7 @@ class EditUser extends Component
                 'updated_at' => now()
             ]);
             // redirect
-            $this->redirect('/gebruikers', navigate: true);
+            $this->redirect('/admin/gebruikers', navigate: true);
         } catch (\Exception $th) {
             dd($th);
         }

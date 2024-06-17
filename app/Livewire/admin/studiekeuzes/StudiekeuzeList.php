@@ -1,22 +1,37 @@
 <?php
 
+
 namespace App\Livewire\admin\studiekeuzes;
 
 use App\Models\Product;
 use App\Models\Studiekeuze;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class StudiekeuzeList extends Component
 {
-    public $all_studiekeuzes;
-    public $all_products;
+    use WithPagination;
 
+    public $sortField = 'name';
+    public $sortDirection = 'asc';
+    public $search = '';
 
     public function mount()
     {
         $this->all_studiekeuzes = Studiekeuze::all();
-
     }
+
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
+    }
+
 
     public function delete($id)
     {
@@ -27,12 +42,16 @@ class StudiekeuzeList extends Component
             dd($th);
         }
     }
+
     public function render()
     {
-        return view('livewire.admin.studiekeuzes.studiekeuze-list',
-            [
-                'products' => Product::all(),
-                'studiekeuzes' => Studiekeuze::paginate(15),
-            ]);
+        $studiekeuzes = Studiekeuze::where('name', 'like', '%' . $this->search . '%')
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate(15);
+
+        return view('livewire.admin.studiekeuzes.studiekeuze-list', [
+            'products' => Product::all(),
+            'studiekeuzes' => $studiekeuzes,
+        ]);
     }
 }

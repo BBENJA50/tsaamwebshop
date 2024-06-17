@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->foreignId('category_id')->unsigned()->constrained();
             $table->foreignId('attribute_id')->unsigned()->constrained();
-            $table->foreignId('subject_id')->unsigned()->constrained();
+            $table->foreignId('subject_id')->unsigned();
             $table->string('image')->nullable();
             $table->softDeletes();
             $table->timestamps();

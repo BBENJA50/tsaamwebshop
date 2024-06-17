@@ -98,7 +98,7 @@
                         <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecteer de producten
                             die je wil toevoegen aan de studiekeuze.<br> (Houd CTRL-toets om meerdere te
                             selecteren)</p>
-                        <div class="relative z-0 w-full  group">
+                        <div class="relative z-0 w-full group">
                             <div class="">
                                 <label for="input-group-search" class="sr-only">Search</label>
                                 <div class="relative">
@@ -116,33 +116,34 @@
                             </div>
                         </div>
                         {{--producten selecteren--}}
-                            <div class="flex flex-row">
-                                <div class="w-1/2 ">
-                                    <label for="availableProducts">Beschikbare producten:</label>
-                                    <select wire:model="products" id="availableProducts" class="h-60 w-full border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md" multiple>
-                                        @foreach($products as $product)
-                                            <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mx-4 justify-center mt-4">
-                                    <button wire:click.prevent="moveSelectedProducts" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700">+</button>
-                                </div>
-                                <div class="w-1/2">
-                                    <label for="selectedProducts">Geselecteerde producten:</label>
-                                    <select wire:model="selectedProducts" id="selectedProducts" class="h-60 w-full border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md" multiple>
-                                        @foreach($selectedProducts as $selectedProduct)
-                                            <option value="{{ $selectedProduct }}">
-                                                {{ htmlspecialchars(Product::find($selectedProduct)->name) }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                        <div class="flex flex-row">
+                            <div class="w-1/2">
+                                <label for="availableProducts">Beschikbare producten:</label>
+                                <select id="availableProducts" class="h-60 w-full border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md" multiple>
+                                    @foreach($products as $product)
+                                        <option wire:click="selectProduct({{ $product->id }})" value="{{ $product->id }}">{{ $product->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
+                            <div class="mx-4 justify-center mt-4">
+                                <button wire:click.prevent="moveSelectedProducts" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700"> >>> </button>
+                            </div>
+                            <div class="w-1/2">
+                                <label for="selectedProducts">Geselecteerde producten:</label>
+                                <select id="selectedProducts" class="h-60 w-full border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 rounded-md" multiple>
+                                    @foreach($selectedProductsDetails as $selectedProduct)
+                                        <option wire:click="removeProduct({{ $selectedProduct->id }})" value="{{ $selectedProduct->id }}">
+                                            {{ htmlspecialchars($selectedProduct->name) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         @if(session('message'))
                             <p class="text-green-500 text-xs mt-1">{{ session('message') }}</p>
                         @endif
+
                         <div class="flex flex-row justify-between">
                             <button type="submit" wire:click="$set('createNew', false)"
                                     class="text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-700">
@@ -159,4 +160,3 @@
         </div>
     </div>
 </div>
-

@@ -19,7 +19,7 @@ class AddSubject extends Component
             Subject::create([
                 'name' => $this->name,
             ]);
-            return $this->redirect('/vakken', navigate: true);
+            return $this->redirect('/admin/vakken', navigate: true);
         } catch (\Exception $e) {
             dd($e);
         }

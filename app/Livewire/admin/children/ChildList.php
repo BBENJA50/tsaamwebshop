@@ -24,7 +24,7 @@ class ChildList extends Component
             //delete user
             Child::where('id', $id)->delete();
 
-            return $this->redirect('/kinderen', navigate: true);
+            return $this->redirect('/admin/kinderen', navigate: true);
     } catch (\Exception $th) {
             dd($th);
         }
@@ -36,7 +36,7 @@ class ChildList extends Component
             Child::where('id', $id)->restore();
             //set is_active to 1
             Child::where('id', $id)->update(['is_active' => 1]);
-            return $this->redirect('/kinderen', navigate: true);
+            return $this->redirect('/admin/kinderen', navigate: true);
         } catch (\Exception $th) {
             dd($th);
         }

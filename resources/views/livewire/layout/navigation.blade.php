@@ -39,7 +39,10 @@ new class extends Component {
                         </x-slot>
                         <x-slot name="content" align="right">
                             <div class="flex flex-col ">
-
+                                <x-nav-link :href="route('bestellingen')" :active="request()->routeIs('bestellingen')"
+                                            wire:navigate class="text-decoration-none p-2 m-2">
+                                    {{ __('Bestellingen') }}
+                                </x-nav-link>
                             </div>
                         </x-slot>
                     </x-dropdown>

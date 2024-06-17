@@ -37,7 +37,7 @@ class AddUser extends Component
                     'password' => bcrypt($this->password),
                 ]);
 
-                return $this->redirect('/gebruikers', navigate: true);
+                return $this->redirect('/admin/gebruikers', navigate: true);
             } else {
                 //add error message
                 return response()->json([

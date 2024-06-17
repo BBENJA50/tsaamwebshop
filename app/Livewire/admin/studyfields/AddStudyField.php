@@ -19,7 +19,7 @@ class AddStudyField extends Component
             StudyField::create([
                 'name' => $this->name,
             ]);
-            return $this->redirect('/richtingen', navigate: true);
+            return $this->redirect('/admin/richtingen', navigate: true);
         } catch (\Exception $e) {
             dd($e);
         }

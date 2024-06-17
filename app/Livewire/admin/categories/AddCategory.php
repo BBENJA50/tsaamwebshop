@@ -21,7 +21,7 @@ class AddCategory extends Component
                 'name' => $this->name,
             ]);
 
-            return $this->redirect('/categorie', navigate: true);
+            return $this->redirect('/admin/categorie', navigate: true);
         } catch (\Exception $e) {
             dd($e);
         }

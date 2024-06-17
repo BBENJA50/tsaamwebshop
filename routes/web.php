@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PaymentController;
+use App\Livewire\admin\orders\OrderList;
 use App\Livewire\admin\categories\AddCategory;
 use App\Livewire\admin\categories\CategoryList;
 use App\Livewire\admin\categories\EditCategory;
@@ -23,8 +25,6 @@ use App\Livewire\admin\subjects\SubjectList;
 use App\Livewire\admin\users\AddUser;
 use App\Livewire\admin\users\EditUser;
 use App\Livewire\admin\users\UserList;
-use App\Livewire\public\products\AddProduct;
-use App\Livewire\public\products\EditProduct;
 use App\Livewire\public\products\ProductList;
 use App\Livewire\public\products\ShoppingCart;
 use Illuminate\Support\Facades\Route;
@@ -64,9 +64,12 @@ Route::get('/cancel', [PaymentController::class, 'cancel'])->name('cancel');
 //admin routes ---------------------------------------------------------
 Route::middleware(['auth', 'checkRole:admin'])->group(function () {
 
-    Route::view('admin/dashboard', 'dashboard')
+    Route::get('admin/dashboard', [DashboardController::class, 'index'])
         ->middleware(['auth', 'verified'])
         ->name('dashboard');
+
+    Route::get('admin/bestellingen', OrderList::class)
+        ->name('bestellingen');
 
     Route::get('admin/rollen', RolesList::class)
         ->name('rollen');
@@ -103,7 +106,7 @@ Route::middleware(['auth', 'checkRole:admin'])->group(function () {
         ->name('studiekeuzes');
     Route::get('admin/nieuw/studiekeuze', AddStudiekeuze::class)
         ->name('addstudiekeuze');
-    Route::get('admin/edit/studiekeuze', EditStudiekeuze::class)
+    Route::get('admin/edit/studiekeuze/{id}', EditStudiekeuze::class)
         ->name('editstudiekeuze');
 
     Route::get('admin/richtingen', StudyFieldList::class)

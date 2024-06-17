@@ -25,7 +25,7 @@ class UserList extends Component
             //delete user
             User::where('id', $id)->delete();;
 
-            return $this->redirect('/gebruikers', navigate: true);
+            return $this->redirect('/admin/gebruikers', navigate: true);
         } catch (\Exception $th) {
                 dd($th);
             }
@@ -38,7 +38,7 @@ class UserList extends Component
             User::where('id', $id)->restore();
             //set is_active to 1
             User::where('id', $id)->update(['is_active' => 1]);
-            return $this->redirect('/gebruikers', navigate: true);
+            return $this->redirect('/admin/gebruikers', navigate: true);
         } catch (\Exception $th) {
                 dd($th);
             }

@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Livewire\admin\studiekeuzes;
 
 use App\Models\AcademicYear;
@@ -22,12 +23,9 @@ class AddStudiekeuze extends Component
     public $study_fields;
     public $study_field_id;
     public $createNew = false;
-    public $products =[];
+    public $products = [];
     public $selectedProducts = [];
-    public $selectedAcademicYear = 3;
-    public $selectedCampus = 1;
     public $search = '';
-
 
     protected $rules = [
         'campus_id' => 'required|not_in:Selecteer een campus',
@@ -40,13 +38,14 @@ class AddStudiekeuze extends Component
     protected $messages = [
         'campus_id.not_in' => 'Selecteer een campus',
     ];
+
     public function updateName()
     {
         $grade = Grade::find($this->grade_id);
         $studyField = StudyField::find($this->study_field_id);
         $campus = Campus::find($this->campus_id);
 
-        $this->name = ( $campus ? $campus->name : '') . ' - ' . ($grade ? $grade->name : '') . ' - ' . ($studyField ? $studyField->name : '');
+        $this->name = ($campus ? $campus->name : '') . ' - ' . ($grade ? $grade->name : '') . ' - ' . ($studyField ? $studyField->name : '');
     }
 
     public function selectProduct($productId)
@@ -55,23 +54,23 @@ class AddStudiekeuze extends Component
             $this->selectedProducts[] = $productId;
         }
     }
+
     public function removeProduct($productId)
     {
         $this->selectedProducts = array_values(array_filter($this->selectedProducts, function ($item) use ($productId) {
             return $item != $productId;
         }));
     }
+
     public function moveSelectedProducts()
     {
-        // Convert $products collection to an array before using array_diff
-        $productsArray = $this->products->toArray();
-        dd($productsArray);
+        $productsArray = $this->products->pluck('id')->toArray();
         $this->selectedProducts = array_merge($this->selectedProducts, array_diff($productsArray, $this->selectedProducts));
-
     }
+
     public function updating($key): void
     {
-        if ($key ==='search') {
+        if ($key === 'search') {
             $this->products = Product::where('name', 'like', '%' . $this->search . '%')->get();
         }
     }
@@ -81,7 +80,7 @@ class AddStudiekeuze extends Component
         $this->validate();
 
         try {
-            $studiekeuze =Studiekeuze::create([
+            $studiekeuze = Studiekeuze::create([
                 'name' => $this->name,
                 'campus_id' => $this->campus_id,
                 'grade_id' => $this->grade_id,
@@ -90,15 +89,13 @@ class AddStudiekeuze extends Component
             ]);
 
             foreach ($this->selectedProducts as $product_id) {
-                // Option 1: Filter for integers
                 if (is_numeric($product_id)) {
                     $studiekeuze->products()->attach($product_id);
                 }
             }
 
             if ($this->createNew) {
-                // Reset properties if creating a new record
-                $this->reset(['campus_id', 'name', 'grade_id', 'academic_year_id', 'study_field_id', 'createNew']);
+                $this->reset(['campus_id', 'name', 'grade_id', 'academic_year_id', 'study_field_id', 'createNew', 'selectedProducts']);
                 session()->flash('message', 'Studiekeuze successfully created.');
             } else {
                 return redirect('/admin/studiekeuzes');
@@ -114,12 +111,17 @@ class AddStudiekeuze extends Component
         $this->grades = Grade::all();
         $this->academic_years = AcademicYear::all();
         $this->study_fields = StudyField::all();
-        $this->products = Product::orderBy('name')->get()
-        ->when($this->search !== '', function ($query) {
-        if ($this->search !== '') {
-            $query->where('name', 'like', '%' . $this->search . '%');
-        }
-        });
-        return view('livewire.admin.studiekeuzes.add-studiekeuze');
+        $this->products = Product::orderBy('name')
+            ->when($this->search !== '', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->get();
+
+        $selectedProductsDetails = Product::whereIn('id', $this->selectedProducts)->get()->sortBy('name');
+
+        return view('livewire.admin.studiekeuzes.add-studiekeuze', [
+            'products' => $this->products,
+            'selectedProductsDetails' => $selectedProductsDetails
+        ]);
     }
 }

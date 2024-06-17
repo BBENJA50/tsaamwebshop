@@ -4,30 +4,39 @@ namespace App\Livewire\admin\studyfields;
 
 use App\Models\StudyField;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class StudyFieldList extends Component
 {
-    public $studyfields;
+    use WithPagination;
+
+    public $sortDirection = 'asc';
+    public $search = '';
 
     public function mount()
     {
-        $this->studyfields = StudyField::all();
+        // No need to set anything here
     }
 
-    public function delete($id)
+    public function sortByName()
     {
-        try {
-            StudyField::where('id', $id)->delete();
-            return $this->redirect('/studyfields', navigate: true);
-        } catch (\Exception $th) {
-            dd($th);
-        }
+        $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
     }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
-        return view('livewire.admin.studyfields.studyfield-list',
-            [
-                'studyfields' => StudyField::paginate(10),
-            ]);
+        $studyfields = StudyField::query()
+            ->where('name', 'like', '%' . $this->search . '%')
+            ->orderBy('name', $this->sortDirection)
+            ->paginate(10);
+
+        return view('livewire.admin.studyfields.studyfield-list', [
+            'studyfields' => $studyfields,
+        ]);
     }
 }

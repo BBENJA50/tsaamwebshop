@@ -57,11 +57,11 @@ class EditChild extends Component
             // redirect
             // if page is edit/gebruiker, go back to the users page else go back to the children page
             if (strpos($_SERVER['HTTP_REFERER'], 'edit/gebruiker') !== false) {
-                $this->redirect('/gebruikers', navigate: true);
+                $this->redirect('/admin/gebruikers', navigate: true);
             } else {
 //                if user is admin
                 if (Auth::user()->hasRole('admin')) {
-                    $this->redirect('/kinderen', navigate: true);
+                    $this->redirect('/admin/kinderen', navigate: true);
                 } else{
                     $this->redirect('/home', navigate: true);
                 }
@@ -82,7 +82,7 @@ class EditChild extends Component
             if (Auth::user()->hasRole('admin')) {
                 // if current page is edit/gebruiker, go back to the users page else go back to the children page
                 if (strpos($_SERVER['HTTP_REFERER'], 'edit/gebruiker') !== false) {
-                    $this->redirect('/gebruikers', navigate: true);
+                    $this->redirect('/admin/gebruikers', navigate: true);
                 } else {
                     $this->redirect('/admin/kinderen', navigate: true);
                 }

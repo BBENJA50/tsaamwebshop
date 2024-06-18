@@ -36,23 +36,17 @@ class ShoppingCart extends Component
         $this->updateCartMetrics();
     }
 
-    public function removeProductFromCart($productId)
+    public function updateQuantity($productId, $quantity, $attributeOption = null, $childId = null)
     {
-        $this->cart = array_filter($this->cart, function($item) use ($productId) {
-            return $item['id'] !== $productId;
-        });
+        $existingProductIndex = null;
+        foreach ($this->cart as $index => $cartItem) {
+            if ($cartItem['id'] == $productId && $cartItem['child_id'] == $childId && $cartItem['attribute_option'] == $attributeOption) {
+                $existingProductIndex = $index;
+                break;
+            }
+        }
 
-        $this->cart = array_values($this->cart);
-
-        session()->put('cart', $this->cart);
-        $this->updateCartMetrics();
-    }
-
-    public function updateQuantity($productId, $quantity)
-    {
-        $existingProductIndex = array_search($productId, array_column($this->cart, 'id'));
-
-        if ($existingProductIndex !== false) {
+        if ($existingProductIndex !== null) {
             $this->cart[$existingProductIndex]['quantity'] = $quantity;
             if ($this->cart[$existingProductIndex]['quantity'] <= 0) {
                 unset($this->cart[$existingProductIndex]);
@@ -63,7 +57,19 @@ class ShoppingCart extends Component
 
         session()->put('cart', array_values($this->cart)); // Re-index the array
         $this->updateCartMetrics();
+    }
 
+    public function removeProductFromCart($productId, $attributeOption = null, $childId = null)
+    {
+        $this->cart = array_filter($this->cart, function($item) use ($productId, $attributeOption, $childId) {
+            $attributeCondition = ($attributeOption === null) ? $item['attribute_option'] === null : $item['attribute_option'] == $attributeOption;
+            return !($item['id'] == $productId && $attributeCondition && $item['child_id'] == $childId);
+        });
+
+        $this->cart = array_values($this->cart);
+
+        session()->put('cart', $this->cart);
+        $this->updateCartMetrics();
     }
 
     public function updateCartMetrics()
@@ -84,6 +90,7 @@ class ShoppingCart extends Component
             'parent' => $this->parent,
             'child' => $this->child,
             'totalItems' => $this->totalItems,
-            'cartTotal' => $this->cartTotal,]);
+            'cartTotal' => $this->cartTotal,
+        ]);
     }
 }

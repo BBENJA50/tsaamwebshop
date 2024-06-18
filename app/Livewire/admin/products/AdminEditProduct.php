@@ -14,27 +14,32 @@ use Livewire\Component;
 
 class AdminEditProduct extends Component
 {
-    public $product_id;
-    public Product $product;
-    public $name;
-    public $description;
-    public $price;
-    public $categories;
-    public $category_id;
-    public $attributen;
-    public $attributeOptions;
-    public $attribute_id;
-    public $selectedAttribute;
-    public $subjects;
-    public $subject_id;
-    public $studiekeuzes;
-    public $selectedStudiekeuzes = [];
-    public $academic_years;
-    public $selectedAcademicYear = 3;
-    public $campusses;
-    public $selectedCampus = 1;
+    public $product_id; // ID van het product
+    public Product $product; // Product model
+    public $name; // Naam van het product
+    public $description; // Beschrijving van het product
+    public $price; // Prijs van het product
+    public $categories; // Alle categorieën
+    public $category_id; // Geselecteerde categorie ID
+    public $attributen; // Alle attributen
+    public $attributeOptions; // Alle attribuutopties
+    public $attribute_id; // Geselecteerde attribuut ID
+    public $selectedAttribute; // Geselecteerde attribuut index
+    public $subjects; // Alle vakken
+    public $subject_id; // Geselecteerde vak ID
+    public $studiekeuzes; // Alle studiekeuzes
+    public $selectedStudiekeuzes = []; // Geselecteerde studiekeuzes
+    public $academic_years; // Alle academische jaren
+    public $selectedAcademicYear = 3; // Geselecteerd academisch jaar
+    public $campusses; // Alle campussen
+    public $selectedCampus = 1; // Geselecteerde campus
 
-    public function mount( $id )
+    /**
+     * Initializeer de component met het product ID en laad de productgegevens.
+     *
+     * @param int $id
+     */
+    public function mount($id)
     {
         $this->product_id = $id;
         $this->product = Product::where('id', $id)->first();
@@ -49,26 +54,44 @@ class AdminEditProduct extends Component
         $this->selectedStudiekeuzes = $this->studiekeuzes->pluck('id')->toArray();
         $this->academic_years = $this->product->academic_years;
         $this->campusses = $this->product->campusses;
-
     }
 
+    /**
+     * Wijzig de geselecteerde attribuut index.
+     *
+     * @param int $id
+     */
     public function changeSelectedAttribute($id)
     {
         $this->selectedAttribute = $id - 1;
     }
 
+    /**
+     * Update de geselecteerde academisch jaar.
+     *
+     * @param int $value
+     */
     public function updatedSelectedAcademicYear($value)
     {
         $this->selectedAcademicYear = $value;
     }
+
+    /**
+     * Update de geselecteerde campus.
+     *
+     * @param int $value
+     */
     public function updateSelectedCampus($value)
     {
         $this->selectedCampus = $value;
     }
 
+    /**
+     * Werk het product bij in de database.
+     */
     public function update()
     {
-        //validation
+        // Validatie van de invoer
         $this->validate([
             'name' => 'required',
             'description' => 'required',
@@ -77,8 +100,9 @@ class AdminEditProduct extends Component
             'attribute_id' => 'required',
             'subject_id' => 'required',
         ]);
-        //edit details
+
         try {
+            // Werk de productgegevens bij in de database
             $product = Product::where('id', $this->product_id)->update([
                 'name' => $this->name,
                 'description' => $this->description,
@@ -92,12 +116,16 @@ class AdminEditProduct extends Component
             $product = Product::where('id', $this->product_id)->first();
             $product->studiekeuzes()->sync($this->selectedStudiekeuzes);
 
-            // redirect
+            // Redirect naar de producten pagina
             $this->redirect('/admin/producten', navigate: true);
         } catch (\Exception $th) {
             dd($th);
         }
     }
+
+    /**
+     * Render de Livewire component view.
+     */
     public function render()
     {
         $this->subjects = Subject::all();

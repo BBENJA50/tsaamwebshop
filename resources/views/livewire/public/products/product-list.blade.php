@@ -25,7 +25,8 @@
                     <div class="flex flex-row items-center">
                         <p class="bg-tsaam-600 rounded-full mt-2 px-2">{{ $myCount }}</p>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-10 h-6 fill-white">
-                            <path d="M253.3 35.1c6.1-11.8 1.5-26.3-10.2-32.4s-26.3-1.5-32.4 10.2L117.6 192H32c-17.7 0-32 14.3-32 32s14.3 32 32 32L83.9 463.5C91 492 116.6 512 146 512H430c29.4 0 55-20 62.1-48.5L544 256c17.7 0 32-14.3 32-32s-14.3-32-32-32H458.4L365.3 12.9C359.2 1.2 344.7-3.4 332.9 2.7s-16.3 20.6-10.2 32.4L404.3 192H171.7L253.3 35.1zM192 304v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16zm96-16c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16zm128 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16z"/>
+                            <path
+                                d="M253.3 35.1c6.1-11.8 1.5-26.3-10.2-32.4s-26.3-1.5-32.4 10.2L117.6 192H32c-17.7 0-32 14.3-32 32s14.3 32 32 32L83.9 463.5C91 492 116.6 512 146 512H430c29.4 0 55-20 62.1-48.5L544 256c17.7 0 32-14.3 32-32s-14.3-32-32-32H458.4L365.3 12.9C359.2 1.2 344.7-3.4 332.9 2.7s-16.3 20.6-10.2 32.4L404.3 192H171.7L253.3 35.1zM192 304v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16zm96-16c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16zm128 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16z"/>
                         </svg>
                     </div>
                 </a>
@@ -50,14 +51,12 @@
                                     <div class="mb-4">
                                         <label class="inline-flex items-center">
                                             <input type="checkbox" name="category_id" id="category_id"
-                                                   class="form-checkbox"
-                                                   wire:model="category_id" value="{{ $category->id }}">
+                                                   class="form-checkbox text-tsaam-500 focus:ring-tsaam-500"
+                                                   wire:model.live="category_id" value="{{ $category->id }}">
                                             <span class="ml-2">{{ $category->name }}</span>
                                         </label>
                                     </div>
                                 @endforeach
-                                {{--                            <div class="mb-4">Nog iets--}}
-                                {{--                            </div>--}}
                             </div>
                         </div>
                         <div
@@ -100,40 +99,60 @@
                                             <div class="p-3 flex h-full justify-between flex-col">
                                                 <div
                                                     class="flex h-full flex-col max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                                    <a href="#">
-                                                        <img class="rounded-t-lg h-48"
-                                                             @if( $product->image) @if( Storage::exists('public/images/' . $product->image)) src="{{ asset('storage/public/images/' . $product->image) }}"
-                                                             @else src="{{ $product->image  }}" @endif
-                                                             @else src="{{ asset('build/assets/images/products/'. mt_rand(0,9) . '.jpg') }}"
-                                                             @endif alt="{{ $product->name }}"/>
-                                                    </a>
+                                                    <img class="rounded-t-lg h-40 object-contain"
+                                                         @if( $product->image) @if( Storage::exists('public/images/' . $product->image)) src="{{ asset('storage/public/images/' . $product->image) }}"
+                                                         @else src="{{ $product->image  }}" @endif
+                                                         @else src="{{ asset('build/assets/images/products/'. mt_rand(0,9) . '.jpg') }}"
+                                                         @endif alt="{{ $product->name }}"/>
                                                     <div class="p-3 pt-1 h-full flex flex-col justify-between">
                                                         <div>
-                                                            <p class="mb-2 font-normal text-xs text-gray-700 dark:text-gray-400">{{$category->name }}</p>
-                                                            <div class="flex flex-row justify-between">
-                                                                <a href="#" class="no-underline">
-                                                                    <h5 class=" text-xl font-bold no-underline  text-gray-900 dark:text-white">{{$product->name}}</h5>
-                                                                </a>
-                                                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{$product->price}}
-                                                                    €</p>
-                                                            </div>
+                                                            <p class="mb-2 font-normal text-xs text-gray-700 dark:text-gray-400">{{$product->category->name }}</p>
+                                                            <h5 class=" text-xl font-bold no-underline  text-gray-900 dark:text-white">{{$product->name}}</h5>
                                                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{$product->description}}</p>
                                                         </div>
+                                                        <div>
+                                                            @if (isset($productErrors[$product->id]))
+                                                                <p class="text-red-500 text-xs mt-1">{{ $productErrors[$product->id] }}</p>
+                                                            @endif
+                                                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">
+                                                                € {{$product->price}} </p>
 
-                                                        <div class="flex flex-row justify-between items-end">
-                                                            <div>
-                                                                <button
-                                                                    wire:click="addProductToCart({{ $product->id }})"
-                                                                    class="inline-flex justify-center items-center px-3 py-2 text-sm font-medium text-center text-white bg-tsaam-500 rounded-lg hover:bg-tsaam-600 focus:ring-4 focus:outline-none focus:ring-tsaam-300 dark:bg-tsaam-600 dark:hover:bg-tsaam-700 dark:focus:ring-tsaam-800">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         class="h-6 w-5 fill-white"
-                                                                         viewBox="0 0 576 512">
-                                                                        <path
-                                                                            d="M24 0C10.7 0 0 10.7 0 24S10.7 48 24 48H69.5c3.8 0 7.1 2.7 7.9 6.5l51.6 271c6.5 34 36.2 58.5 70.7 58.5H488c13.3 0 24-10.7 24-24s-10.7-24-24-24H199.7c-11.5 0-21.4-8.2-23.6-19.5L170.7 288H459.2c32.6 0 61.1-21.8 69.5-53.3l41-152.3C576.6 57 557.4 32 531.1 32H360V134.1l23-23c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-64 64c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l23 23V32H120.1C111 12.8 91.6 0 69.5 0H24zM176 512a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm336-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z"/>
-                                                                    </svg>
-                                                                </button>
+                                                            <div class="flex flex-row">
+                                                                <div class="flex flex-row justify-between w-full">
+                                                                    <div class="flex items-end">
+                                                                        <button
+                                                                            wire:click="addProductToCart({{ $product->id }})"
+                                                                            class="inline-flex justify-center items-center px-3 py-2 text-sm font-medium text-center text-white bg-tsaam-500 rounded-lg hover:bg-tsaam-600 focus:ring-4 focus:outline-none focus:ring-tsaam-300 dark:bg-tsaam-600 dark:hover:bg-tsaam-700 dark:focus:ring-tsaam-800">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                 class="h-6 w-5 fill-white"
+                                                                                 viewBox="0 0 576 512">
+                                                                                <path
+                                                                                    d="M24 0C10.7 0 0 10.7 0 24S10.7 48 24 48H69.5c3.8 0 7.1 2.7 7.9 6.5l51.6 271c6.5 34 36.2 58.5 70.7 58.5H488c13.3 0 24-10.7 24-24s-10.7-24-24-24H199.7c-11.5 0-21.4-8.2-23.6-19.5L170.7 288H459.2c32.6 0 61.1-21.8 69.5-53.3l41-152.3C576.6 57 557.4 32 531.1 32H360V134.1l23-23c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-64 64c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l23 23V32H120.1C111 12.8 91.6 0 69.5 0H24zM176 512a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm336-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z"/>
+                                                                            </svg>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class=" items-center w-full ms-2">
+                                                                        @if($product->attribute_id > 1)
+                                                                            <div class="w-full">
+                                                                                <select
+                                                                                    id="attribute_{{ $product->id }}"
+                                                                                    wire:model="selectedAttributeOptions.{{ $product->id }}"
+                                                                                    class="form-select mt-1 block w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                                                                    <option
+                                                                                        value="">{{ __('Maat') }}</option>
+                                                                                    @foreach($product->attribute->attributeOptions as $option)
+                                                                                        <option
+                                                                                            value="{{ $option->value }}">{{ $option->value }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>

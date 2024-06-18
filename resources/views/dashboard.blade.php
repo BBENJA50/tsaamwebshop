@@ -1,5 +1,3 @@
-<!-- resources/views/dashboard.blade.php -->
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -39,13 +37,13 @@
             <div class="grid grid-cols-2 md:grid-cols-2 gap-6 mt-6">
                 <!-- Recent Charges Graph Section -->
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg col-span-1 p-6">
-                    <h3 class="text-lg font-semibold">Recente Betalingen</h3>
+                    <h3 class="text-lg font-semibold">Recente Bestellingen</h3>
                     <canvas id="recentChargesChart"></canvas>
                 </div>
 
                 <!-- Total Amount Paid Graph Section -->
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg col-span-1 p-6">
-                    <h3 class="text-lg font-semibold">Totaal Ontvangen Omzet</h3>
+                    <h3 class="text-lg font-semibold">Totaal Omzet</h3>
                     <canvas id="totalAmountPaidChart"></canvas>
                 </div>
 
@@ -108,7 +106,7 @@
                 data: {
                     labels: @json($labels),
                     datasets: [{
-                        label: 'Recente Betalingen',
+                        label: 'Waarde Bestellingen',
                         data: @json($amounts),
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgba(75, 192, 192, 1)',

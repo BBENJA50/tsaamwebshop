@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Livewire\admin\studiekeuzes;
 
 use App\Models\AcademicYear;
@@ -13,20 +12,21 @@ use Livewire\Component;
 
 class AddStudiekeuze extends Component
 {
-    public $name;
-    public $campusses;
-    public $campus_id = 'Selecteer een campus';
-    public $grades;
-    public $grade_id;
-    public $academic_years;
-    public $academic_year_id = 3;
-    public $study_fields;
-    public $study_field_id;
-    public $createNew = false;
-    public $products = [];
-    public $selectedProducts = [];
-    public $search = '';
+    public $name; // Naam van de studiekeuze
+    public $campusses; // Alle campussen
+    public $campus_id = 'Selecteer een campus'; // Geselecteerde campus ID
+    public $grades; // Alle klassen
+    public $grade_id; // Geselecteerde klasse ID
+    public $academic_years; // Alle academische jaren
+    public $academic_year_id = 3; // Geselecteerd academisch jaar ID
+    public $study_fields; // Alle studierichtingen
+    public $study_field_id; // Geselecteerde studierichting ID
+    public $createNew = false; // Flag om nieuwe studiekeuze te maken
+    public $products = []; // Alle producten
+    public $selectedProducts = []; // Geselecteerde producten
+    public $search = ''; // Zoekterm
 
+    // Validatieregels
     protected $rules = [
         'campus_id' => 'required|not_in:Selecteer een campus',
         'name' => 'required',
@@ -35,10 +35,12 @@ class AddStudiekeuze extends Component
         'study_field_id' => 'required',
     ];
 
+    // Validatieberichten
     protected $messages = [
         'campus_id.not_in' => 'Selecteer een campus',
     ];
 
+    // Update de naam van de studiekeuze
     public function updateName()
     {
         $grade = Grade::find($this->grade_id);
@@ -48,6 +50,7 @@ class AddStudiekeuze extends Component
         $this->name = ($campus ? $campus->name : '') . ' - ' . ($grade ? $grade->name : '') . ' - ' . ($studyField ? $studyField->name : '');
     }
 
+    // Selecteer een product
     public function selectProduct($productId)
     {
         if (!in_array($productId, $this->selectedProducts)) {
@@ -55,6 +58,7 @@ class AddStudiekeuze extends Component
         }
     }
 
+    // Verwijder een product
     public function removeProduct($productId)
     {
         $this->selectedProducts = array_values(array_filter($this->selectedProducts, function ($item) use ($productId) {
@@ -62,12 +66,14 @@ class AddStudiekeuze extends Component
         }));
     }
 
+    // Verplaats geselecteerde producten
     public function moveSelectedProducts()
     {
         $productsArray = $this->products->pluck('id')->toArray();
         $this->selectedProducts = array_merge($this->selectedProducts, array_diff($productsArray, $this->selectedProducts));
     }
 
+    // Bijwerken van zoekopdracht
     public function updating($key): void
     {
         if ($key === 'search') {
@@ -75,6 +81,7 @@ class AddStudiekeuze extends Component
         }
     }
 
+    // Opslaan van de studiekeuze
     public function saveStudiekeuze()
     {
         $this->validate();
@@ -96,7 +103,7 @@ class AddStudiekeuze extends Component
 
             if ($this->createNew) {
                 $this->reset(['campus_id', 'name', 'grade_id', 'academic_year_id', 'study_field_id', 'createNew', 'selectedProducts']);
-                session()->flash('message', 'Studiekeuze successfully created.');
+                session()->flash('message', 'Studiekeuze succesvol aangemaakt.');
             } else {
                 return redirect('/admin/studiekeuzes');
             }
@@ -105,6 +112,7 @@ class AddStudiekeuze extends Component
         }
     }
 
+    // Render de Livewire component view
     public function render()
     {
         $this->campusses = Campus::all();

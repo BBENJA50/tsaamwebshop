@@ -9,16 +9,21 @@ use Livewire\Component;
 
 class EditChild extends Component
 {
-    public $child_id;
-    public $first_name;
-    public $last_name;
-    public Child $child;
-    public $users;
-    public $user_id;
-    public $studiekeuzes;
-    public $studiekeuze_id;
+    public $child_id; // ID van het kind
+    public $first_name; // Voornaam van het kind
+    public $last_name; // Achternaam van het kind
+    public Child $child; // Kind model
+    public $users; // Gebruikers
+    public $user_id; // ID van de gebruiker
+    public $studiekeuzes; // Studiekeuzes
+    public $studiekeuze_id; // ID van de studiekeuze
 
-    public function mount( $id )
+    /**
+     * Mount de component met de ID van het kind.
+     *
+     * @param int $id
+     */
+    public function mount($id)
     {
         $this->child_id = $id;
         $this->child = Child::where('id', $id)->first();
@@ -36,16 +41,20 @@ class EditChild extends Component
         }
     }
 
+    /**
+     * Update de gegevens van het kind.
+     */
     public function update()
     {
-        //validation
+        // Validatie
         $this->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'user_id' => 'required',
             'studiekeuze_id' => 'required',
         ]);
-        //edit details
+
+        // Bewerk de gegevens
         try {
             Child::where('id', $this->child_id)->update([
                 'first_name' => $this->first_name,
@@ -54,12 +63,13 @@ class EditChild extends Component
                 'studiekeuze_id' => $this->studiekeuze_id,
                 'updated_at' => now()
             ]);
-            // redirect
-            // if page is edit/gebruiker, go back to the users page else go back to the children page
+
+            // Redirect
+            // Als de pagina 'edit/gebruiker' is, ga terug naar de gebruikerspagina, anders naar de kinderenpagina
             if (strpos($_SERVER['HTTP_REFERER'], 'edit/gebruiker') !== false) {
                 $this->redirect('/admin/gebruikers', navigate: true);
             } else {
-//                if user is admin
+                // Als gebruiker admin is
                 if (Auth::user()->hasRole('admin')) {
                     $this->redirect('/admin/kinderen', navigate: true);
                 } else{
@@ -67,20 +77,25 @@ class EditChild extends Component
                 }
             }
         } catch (\Exception $th) {
-            dd($th);
+            dd($th); // Toon fout voor debugging
         }
     }
 
-    public function removeUser( $id )
+    /**
+     * Verwijder de gebruiker van het kind.
+     *
+     * @param int $id
+     */
+    public function removeUser($id)
     {
         try {
             Child::where('id', $this->child_id)->update([
                 'user_id' => null
             ]);
 
-            // redirect
+            // Redirect
             if (Auth::user()->hasRole('admin')) {
-                // if current page is edit/gebruiker, go back to the users page else go back to the children page
+                // Als de huidige pagina 'edit/gebruiker' is, ga terug naar de gebruikerspagina, anders naar de kinderenpagina
                 if (strpos($_SERVER['HTTP_REFERER'], 'edit/gebruiker') !== false) {
                     $this->redirect('/admin/gebruikers', navigate: true);
                 } else {
@@ -89,12 +104,14 @@ class EditChild extends Component
             } else{
                 $this->redirect('/home', navigate: true);
             }
-
-
         } catch (\Exception $th) {
-            dd($th);
+            dd($th); // Toon fout voor debugging
         }
     }
+
+    /**
+     * Render de Livewire component view.
+     */
     public function render()
     {
         $this->studiekeuzes = Studiekeuze::all();

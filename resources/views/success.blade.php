@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="text-center mb-4">
-                    <a href="{{ route('home') }}" class="no-underline bg-tsaam-500 hover:bg-tsaam-700 text-white font-bold py-2 px-4 rounded">{{ __('Terug naar Home') }}</a>
+                    <a href="{{ route('home') }}" class="no-underline bg-tsaam-500 hover:bg-tsaam-700 text-white font-bold py-2 px-4 rounded">{{ __('Terug naar de startpagina.') }}</a>
                 </div>
 
                 <div class="text-center">

@@ -2,42 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\User;
-use App\Services\StripeService;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    protected $stripeService;
-
-    public function __construct(StripeService $stripeService)
-    {
-        $this->stripeService = $stripeService;
-    }
-
     public function index()
     {
+        // Haal het totale aantal producten op
         $totalProducts = Product::count();
+        // Haal het totale aantal bestellingen op
         $totalOrders = Order::count();
+        // Bereken de totale omzet
         $totalRevenue = Order::sum('total_price');
-        $totalUsers = user::count();
+        // Haal het totale aantal gebruikers op
+        $totalUsers = User::count();
 
-        $recentCharges = $this->stripeService->getRecentCharges(10);
-        $chargeData = $recentCharges->data;
-        $labels = array_map(fn($charge) => date('Y-m-d', $charge->created), $chargeData);
-        $amounts = array_map(fn($charge) => $charge->amount / 100, $chargeData);
+        // Haal de meest recente bestellingen op
+        $orders = Order::latest()->take(10)->get();
 
+        // Bereid gegevens voor de grafieken voor
+        $labels = [];
+        $amounts = [];
         $cumulativeAmounts = [];
-        $total = 0;
-        foreach ($amounts as $amount) {
-            $total += $amount;
-            $cumulativeAmounts[] = $total;
+        $cumulativeTotal = 0;
+
+        // Haal de bestellingen op, gegroepeerd per 30 minuten interval, voor de laatste 24 uur
+        $ordersByInterval = Order::where('ordered_at', '>=', Carbon::now()->subHours(24))
+            ->select(DB::raw('DATE_FORMAT(ordered_at, "%Y-%m-%d %H:00:00") as interval_start'), DB::raw('FLOOR(MINUTE(ordered_at) / 30) as half_hour'), DB::raw('SUM(total_price) as total'))
+            ->groupBy('interval_start', 'half_hour')
+            ->orderBy('interval_start')
+            ->orderBy('half_hour')
+            ->get();
+
+        // Verwerk de opgehaalde bestellingen om de labels en bedragen voor de grafieken te vullen
+        foreach ($ordersByInterval as $order) {
+            $labels[] = Carbon::parse($order->interval_start)->addMinutes($order->half_hour * 30)->format('Y-m-d H:i');
+            $amounts[] = $order->total;
+            $cumulativeTotal += $order->total;
+            $cumulativeAmounts[] = $cumulativeTotal;
         }
 
-        $orders = Order::with('details')->orderBy('ordered_at', 'desc')->take(10)->get();
-
-        return view('dashboard', compact('totalProducts', 'totalOrders', 'totalRevenue', 'labels', 'amounts', 'cumulativeAmounts', 'orders', 'totalUsers'));
+        // Geef de data door aan de view
+        return view('dashboard', compact(
+            'totalProducts',
+            'totalOrders',
+            'totalRevenue',
+            'totalUsers',
+            'orders',
+            'labels',
+            'amounts',
+            'cumulativeAmounts'
+        ));
     }
 }

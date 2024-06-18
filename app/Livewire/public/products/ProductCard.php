@@ -15,26 +15,7 @@ class ProductCard extends Component
     public $attributeOptions;
     public $studiekeuze;
 
-    public function addToCart(Request $request)
-    {
-        $productId = $request->input('product_id');
-        $product = Product::find($productId);
 
-        if (!$product) {
-            return redirect()->route('products.index')->with('error', 'Product not found!');
-        }
-
-        // Add product to cart
-        $cart = session()->get('cart', []);
-        $cart[$productId] = [
-            'name' => $product->name,
-            'price' => $product->price,
-        ];
-        session()->put('cart', $cart);
-
-        dd(session()->get('cart'));
-        return redirect()->route('products.index')->with('success', 'Product added to cart successfully!');
-    }
 
     public function render()
     {

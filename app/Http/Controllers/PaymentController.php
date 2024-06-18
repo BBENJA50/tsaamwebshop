@@ -12,10 +12,12 @@ class PaymentController extends Controller
 {
     public function checkout()
     {
+        // Haal de inhoud van de winkelwagen op uit de sessie
         $cart = session()->get('cart', []);
         $lineItems = [];
         $children = Auth::user()->children;
 
+        // Bereid de line items voor de Stripe checkout sessie
         foreach ($cart as $item) {
             $lineItems[] = [
                 'price_data' => [
@@ -23,12 +25,13 @@ class PaymentController extends Controller
                     'product_data' => [
                         'name' => $item['name'],
                     ],
-                    'unit_amount' => $item['price'] * 100, // amount in cents
+                    'unit_amount' => $item['price'] * 100, // bedrag in centen
                 ],
                 'quantity' => $item['quantity'],
             ];
         }
 
+        // Render de checkout view met de nodige data
         return view('checkout', [
             'lineItems' => $lineItems,
             'cart' => $cart,
@@ -41,11 +44,20 @@ class PaymentController extends Controller
 
     public function processCheckout(Request $request)
     {
+        // Stel de Stripe API sleutel in
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
+        // Haal de inhoud van de winkelwagen op uit de sessie
         $cart = session()->get('cart', []);
+
+        // Controleer of de winkelwagen leeg is
+        if (empty($cart)) {
+            return redirect()->route('cancel');
+        }
+
         $lineItems = [];
 
+        // Bereid de line items voor de Stripe checkout sessie
         foreach ($cart as $item) {
             $lineItems[] = [
                 'price_data' => [
@@ -53,12 +65,13 @@ class PaymentController extends Controller
                     'product_data' => [
                         'name' => $item['name'],
                     ],
-                    'unit_amount' => $item['price'] * 100, // amount in cents
+                    'unit_amount' => $item['price'] * 100, // bedrag in centen
                 ],
                 'quantity' => $item['quantity'],
             ];
         }
 
+        // Maak de Stripe checkout sessie aan
         $checkoutSession = CheckoutSession::create([
             'payment_method_types' => ['card', 'p24', 'bancontact'],
             'line_items' => $lineItems,
@@ -67,31 +80,32 @@ class PaymentController extends Controller
             'cancel_url' => route('cancel'),
         ]);
 
+        // Redirect naar de Stripe checkout sessie
         return redirect($checkoutSession->url);
     }
 
     public function success()
     {
-        // Retrieve user and child information
+        // Haal de gebruiker en kind informatie op
         $user = Auth::user();
 
-        // Retrieve cart details
+        // Haal de winkelwagen details op uit de sessie
         $cart = session()->get('cart', []);
 
-        // Group cart items by child_id
+        // Groepeer de winkelwagen items per child_id
         $cartByChild = [];
         foreach ($cart as $item) {
             $cartByChild[$item['child_id']][] = $item;
         }
 
-        // Create separate orders for each child
+        // Maak aparte bestellingen voor elk kind
         foreach ($cartByChild as $childId => $items) {
             $child = $user->children->find($childId);
             $totalPrice = collect($items)->reduce(function ($carry, $item) {
                 return $carry + ($item['price'] * $item['quantity']);
             }, 0);
 
-            // Create the order
+            // Maak de bestelling aan
             $order = Order::create([
                 'order_number' => uniqid('ORDER-'),
                 'parent_id' => $user->id,
@@ -102,12 +116,13 @@ class PaymentController extends Controller
                 'ordered_at' => now(),
             ]);
 
-            // Create order details
+            // Maak de order details aan
             foreach ($items as $item) {
                 OrderDetail::create([
                     'order_id' => $order->id,
                     'product_id' => $item['id'],
                     'product_name' => $item['name'],
+                    'product_option' => $item['attribute_option'],
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                     'total' => $item['price'] * $item['quantity'],
@@ -115,7 +130,7 @@ class PaymentController extends Controller
             }
         }
 
-        // Clear the cart after successful payment
+        // Wis de winkelwagen na succesvolle betaling
         session()->forget('cart');
         session()->forget('myCount');
 

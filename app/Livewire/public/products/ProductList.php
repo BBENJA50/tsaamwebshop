@@ -4,6 +4,7 @@ namespace App\Livewire\public\products;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Attribute;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -16,6 +17,8 @@ class ProductList extends Component
     public $totalItems = 0;
     public $cartTotal = 0;
     public $myCount= 0;
+    public $selectedAttributeOptions = [];
+    public $productErrors = [];
 
     public function mount($childId = null)
     {
@@ -41,20 +44,37 @@ class ProductList extends Component
 
     public function addProductToCart($productId)
     {
-        $existingProductIndex = array_search($productId, array_column($this->cart, 'id'));
+        $product = Product::find($productId);
+
+        // Check if the product has an attribute with id > 1 and ensure an option is selected
+        if ($product->attribute_id > 1 && empty($this->selectedAttributeOptions[$productId])) {
+            $this->productErrors[$productId] = 'Selecteer een maat voor het product.';
+            return;
+        }
+
+        unset($this->productErrors[$productId]);
+
+        $existingProductIndex = null;
+        foreach ($this->cart as $index => $cartItem) {
+            if ($cartItem['id'] == $productId && $cartItem['child_id'] == $this->child->id && $cartItem['attribute_option'] == ($this->selectedAttributeOptions[$productId] ?? null)) {
+                $existingProductIndex = $index;
+                break;
+            }
+        }
 
         $this->myCount++;
-        //controleer als het product al in de winkelwagen zit
-        if ($existingProductIndex !== false)   {
+        // Check if the product is already in the cart
+        if ($existingProductIndex !== null) {
             $this->cart[$existingProductIndex]['quantity']++;
         } else {
             $this->cart[] = [
                 'id' => $productId,
-                'image' => Product::find($productId)->image,
+                'image' => $product->image,
                 'quantity' => 1,
-                'price' => Product::find($productId)->price,
-                'name' => Product::find($productId)->name,
+                'price' => $product->price,
+                'name' => $product->name,
                 'child_id' => $this->child->id ?? null,
+                'attribute_option' => $this->selectedAttributeOptions[$productId] ?? null,
             ];
         }
         session()->flash('message', 'Product toegevoegd.');
@@ -67,11 +87,19 @@ class ProductList extends Component
         $this->dispatch('added');
     }
 
-    public function updateQuantity($productId, $quantity)
-    {
-        $existingProductIndex = array_search($productId, array_column($this->cart, 'id'));
 
-        if ($existingProductIndex !== false) {
+
+    public function updateQuantity($productId, $quantity, $attributeOption = null)
+    {
+        $existingProductIndex = null;
+        foreach ($this->cart as $index => $cartItem) {
+            if ($cartItem['id'] == $productId && $cartItem['attribute_option'] == $attributeOption) {
+                $existingProductIndex = $index;
+                break;
+            }
+        }
+
+        if ($existingProductIndex !== null) {
             $this->cart[$existingProductIndex]['quantity'] = $quantity;
             if ($this->cart[$existingProductIndex]['quantity'] <= 0) {
                 unset($this->cart[$existingProductIndex]);
@@ -81,9 +109,9 @@ class ProductList extends Component
         $this->cart = array_values($this->cart);
 
         session()->put('cart', array_values($this->cart)); // Re-index the array
-        session()->put('myCount', $this->myCount);
         $this->updateCartMetrics();
     }
+
 
     public function removeProductFromCart($productId)
     {
@@ -129,7 +157,8 @@ class ProductList extends Component
         return view('livewire.public.products.product-list', [
             'products' => $products,
             'categories' => Category::all(),
-            'myCount' => $this->myCount
+            'myCount' => $this->myCount,
+            'attributes' => Attribute::with('attributeOptions')->get(),
         ]);
     }
 }

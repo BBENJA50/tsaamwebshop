@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Livewire\admin\studiekeuzes;
 
 use App\Models\Product;
@@ -12,15 +11,17 @@ class StudiekeuzeList extends Component
 {
     use WithPagination;
 
-    public $sortField = 'name';
-    public $sortDirection = 'asc';
-    public $search = '';
+    public $sortField = 'name'; // Veld om op te sorteren
+    public $sortDirection = 'asc'; // Sorteervolgorde (asc of desc)
+    public $search = ''; // Zoekterm
 
+    // Initialisatie van de component
     public function mount()
     {
-        $this->all_studiekeuzes = Studiekeuze::all();
+        $this->all_studiekeuzes = Studiekeuze::all(); // Haal alle studiekeuzes op
     }
 
+    // Sorteer de studiekeuzes op het opgegeven veld
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -32,7 +33,7 @@ class StudiekeuzeList extends Component
         $this->sortField = $field;
     }
 
-
+    // Verwijder een studiekeuze
     public function delete($id)
     {
         try {
@@ -43,6 +44,7 @@ class StudiekeuzeList extends Component
         }
     }
 
+    // Render de Livewire component view
     public function render()
     {
         $studiekeuzes = Studiekeuze::where('name', 'like', '%' . $this->search . '%')

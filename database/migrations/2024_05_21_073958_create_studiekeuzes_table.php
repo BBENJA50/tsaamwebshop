@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('studiekeuzes', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->foreignId('academic_year_id')->constrained()->cascadeOnDelete();
             $table->foreignId('campus_id')->constrained()->cascadeOnDelete();
             $table->foreignId('grade_id')->constrained()->cascadeOnDelete();

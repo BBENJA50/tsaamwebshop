@@ -25,6 +25,7 @@ use App\Livewire\admin\subjects\SubjectList;
 use App\Livewire\admin\users\AddUser;
 use App\Livewire\admin\users\EditUser;
 use App\Livewire\admin\users\UserList;
+use App\Livewire\admin\users\UserOrderList;
 use App\Livewire\public\products\ProductList;
 use App\Livewire\public\products\ShoppingCart;
 use Illuminate\Support\Facades\Route;
@@ -39,9 +40,11 @@ Route::view('home', 'home')
     ->middleware(['auth'])
     ->name('home');
 
-//ProductList route showing only products with studiekeuze of current child
 Route::get('/producten/{childId?}', ProductList::class)
     ->name('productList');
+
+Route::get('/gebruiker/bestellingen', UserOrderList::class)
+    ->name('user.orders');
 
 Route::get('/shopping-cart/{childId?}', ShoppingCart::class)
     ->name('shoppingCart');

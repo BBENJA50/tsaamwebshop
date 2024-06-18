@@ -33,7 +33,7 @@ new class extends Component {
                 <div class="hidden space-x-8 md:-my-px md:ms-10 md:flex">
                     <x-dropdown align="left">
                         <x-slot name="trigger" >
-                            <x-nav-link :href="route('dashboard')" wire:navigate :active="request()->routeIs('dashboard') || request()->routeIs('dashboard') || request()->routeIs('dashboard')" class="text-decoration-none pt-4 pb-2 ">
+                            <x-nav-link :href="route('dashboard')" wire:navigate :active="request()->routeIs('dashboard') || request()->routeIs('dashboard') || request()->routeIs('bestellingen')" class="text-decoration-none pt-4 pb-2 ">
                                 {{ __('Dashboard') }}
                             </x-nav-link>
                         </x-slot>
@@ -134,14 +134,19 @@ new class extends Component {
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile')" wire:navigate>
-                            {{ __('Profile') }}
+                        <x-dropdown-link :href="route('profile')" wire:navigate class="no-underline">
+                            {{ __('Mijn profiel') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('user.orders')" wire:navigate class="no-underline">
+                            {{ __('Mijn bestellingen') }}
+                        </x-dropdown-link>
+                        <hr>
+
                         <!-- Authentication -->
-                        <button wire:click="logout" class="w-full text-start">
-                            <x-dropdown-link>
-                                {{ __('Log Out') }}
+                        <button wire:click="logout" class="w-full text-start mb-2 font-bold bg-tsaam-500 hover:bg-tsaam-700 text-white">
+                            <x-dropdown-link class="no-underline text-white hover:bg-tsaam-600">
+                                {{ __('Uitloggen') }}
                             </x-dropdown-link>
                         </button>
                     </x-slot>

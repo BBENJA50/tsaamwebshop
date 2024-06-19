@@ -16,7 +16,7 @@ class ProductList extends Component
     public $cart = [];
     public $totalItems = 0;
     public $cartTotal = 0;
-    public $myCount= 0;
+    public $myCount = 0;
     public $selectedAttributeOptions = [];
     public $productErrors = [];
 
@@ -80,13 +80,12 @@ class ProductList extends Component
         session()->flash('message', 'Product toegevoegd.');
 
         session()->put('cart', $this->cart);
-        session()->put('myCount',$this->myCount);
+        session()->put('myCount', $this->myCount);
 
         $this->updateCartMetrics();
 
         $this->dispatch('added');
     }
-
 
 
     public function updateQuantity($productId, $quantity, $attributeOption = null)
@@ -115,7 +114,7 @@ class ProductList extends Component
 
     public function removeProductFromCart($productId)
     {
-        $this->cart = array_filter($this->cart, function($item) use ($productId) {
+        $this->cart = array_filter($this->cart, function ($item) use ($productId) {
             return $item['id'] !== $productId;
         });
 
@@ -152,11 +151,19 @@ class ProductList extends Component
             }
         }
 
-        $products = $query->get();
+        $products = $query->orderBy('name')->get();
+
+        $categories = Category::whereHas('products', function ($query) {
+            if ($this->child) {
+                $query->whereHas('studiekeuzes', function ($query) {
+                    $query->where('studiekeuzes.id', $this->child->studiekeuze->id);
+                });
+            }
+        })->orderBy('name')->get();
 
         return view('livewire.public.products.product-list', [
             'products' => $products,
-            'categories' => Category::all(),
+            'categories' => $categories,
             'myCount' => $this->myCount,
             'attributes' => Attribute::with('attributeOptions')->get(),
         ]);

@@ -28,7 +28,7 @@ class CategoryList extends Component
             // Verwijder de categorie met het opgegeven ID
             Category::where('id', $id)->delete();
             // Redirect naar de categorieën pagina na succesvolle verwijdering
-            return $this->redirect('/categorie', navigate: true);
+            return $this->redirect('/admin/categorie', navigate: true);
         } catch (\Exception $th) {
             // Vang eventuele fouten op en dump deze voor debugging
             dd($th);

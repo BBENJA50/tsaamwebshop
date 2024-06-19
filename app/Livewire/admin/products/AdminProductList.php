@@ -43,7 +43,7 @@ class AdminProductList extends Component
     {
         try {
             Product::where('id', $id)->delete();
-            return redirect('/producten');
+            return redirect('/admin/producten');
         } catch (Exception $th) {
             dd($th);
         }

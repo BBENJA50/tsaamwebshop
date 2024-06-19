@@ -20,7 +20,7 @@
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="flex flex-row justify-between items-center content-center">
                 <div class="p-6 text-xl font-semibold text-gray-900 dark:text-gray-100">
-                    {{ __("Mijn Bestellingen") }}
+                    {{ __("Mijn Bestellingen per kind") }}
                 </div>
                 <div>
                     <a href="{{ route('home') }}" wire:navigate type="button"

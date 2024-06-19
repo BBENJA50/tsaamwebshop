@@ -50,27 +50,27 @@ new #[Layout('layouts.guest')] class extends Component
         <!-- First Name -->
         <div>
             <x-input-label for="first_name" :value="__('Voornaam')" />
-            <x-text-input wire:model="first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" required autofocus autocomplete="first_name" />
+            <x-text-input wire:model="first_name" id="first_name" class="block mt-1 w-full border-tsaam-600 focus:border-tsaam-400 focus:ring-tsaam-400" type="text" name="first_name" required autofocus autocomplete="first_name" />
             <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
         </div>
         <!-- Last Name -->
         <div class="mt-4">
             <x-input-label for="last_name" :value="__('Familienaam')" />
-            <x-text-input wire:model="last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" required autofocus autocomplete="last_name" />
+            <x-text-input wire:model="last_name" id="last_name" class="block mt-1 w-full border-tsaam-600 focus:border-tsaam-400 focus:ring-tsaam-400" type="text" name="last_name" required autofocus autocomplete="last_name" />
             <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="username" />
+            <x-text-input wire:model="email" id="email" class="block mt-1 w-full border-tsaam-600 focus:border-tsaam-400 focus:ring-tsaam-400" type="email" name="email" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Gsm Number -->
         <div class="mt-4">
             <x-input-label for="gsm_number" :value="__('GSM nummer')" />
-            <x-text-input wire:model="gsm_number" id="gsm_number" class="block mt-1 w-full" type="text" name="gsm_number" required autofocus autocomplete="gsm_number" />
+            <x-text-input wire:model="gsm_number" id="gsm_number" class="block mt-1 w-full border-tsaam-600 focus:border-tsaam-400 focus:ring-tsaam-400" type="text" name="gsm_number" required autofocus autocomplete="gsm_number" />
             <x-input-error :messages="$errors->get('gsm_number')" class="mt-2" />
         </div>
 
@@ -78,7 +78,7 @@ new #[Layout('layouts.guest')] class extends Component
         <div class="mt-4">
             <x-input-label for="password" :value="__('Wachtwoord')" />
 
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
+            <x-text-input wire:model="password" id="password" class="block mt-1 w-full border-tsaam-600 focus:border-tsaam-400 focus:ring-tsaam-400"
                             type="password"
                             name="password"
                             required autocomplete="new-password" />
@@ -90,7 +90,7 @@ new #[Layout('layouts.guest')] class extends Component
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Bevestig wachtwoord')" />
 
-            <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
+            <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full border-tsaam-600 focus:border-tsaam-400 focus:ring-tsaam-400"
                             type="password"
                             name="password_confirmation" required autocomplete="new-password" />
 

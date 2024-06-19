@@ -38,7 +38,7 @@ class StudiekeuzeList extends Component
     {
         try {
             Studiekeuze::where('id', $id)->delete();
-            return $this->redirect('/studiekeuzes', navigate: true);
+            return $this->redirect('/admin/studiekeuzes', navigate: true);
         } catch (\Exception $th) {
             dd($th);
         }

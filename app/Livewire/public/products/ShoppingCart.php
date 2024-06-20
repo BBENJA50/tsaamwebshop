@@ -7,14 +7,15 @@ use Livewire\Component;
 
 class ShoppingCart extends Component
 {
-    public $cart = [];
-    public $children = [];
-    public $parent;
-    public $child;
-    public $studiekeuze_id;
-    public $totalItems = 0;
-    public $cartTotal = 0;
+    public $cart = []; // Array om winkelwagenitems op te slaan
+    public $children = []; // Array om kinderen van de ouder op te slaan
+    public $parent; // Variabele om de ouder op te slaan
+    public $child; // Variabele om het geselecteerde kind op te slaan
+    public $studiekeuze_id; // Variabele om de studiekeuze-id op te slaan
+    public $totalItems = 0; // Variabele om het totaal aantal items in de winkelwagen op te slaan
+    public $cartTotal = 0; // Variabele om het totale bedrag van de winkelwagen op te slaan
 
+    // Methode om het component te mounten met een specifiek kind-id
     public function mount($childId = null)
     {
         $this->parent = auth()->user();
@@ -36,6 +37,7 @@ class ShoppingCart extends Component
         $this->updateCartMetrics();
     }
 
+    // Methode om de hoeveelheid van een product in de winkelwagen bij te werken
     public function updateQuantity($productId, $quantity, $attributeOption = null, $childId = null)
     {
         $existingProductIndex = null;
@@ -55,10 +57,11 @@ class ShoppingCart extends Component
 
         $this->cart = array_values($this->cart);
 
-        session()->put('cart', array_values($this->cart)); // Re-index the array
+        session()->put('cart', array_values($this->cart)); // Herindexeer de array
         $this->updateCartMetrics();
     }
 
+    // Methode om een product uit de winkelwagen te verwijderen
     public function removeProductFromCart($productId, $attributeOption = null, $childId = null)
     {
         $this->cart = array_filter($this->cart, function($item) use ($productId, $attributeOption, $childId) {
@@ -72,6 +75,7 @@ class ShoppingCart extends Component
         $this->updateCartMetrics();
     }
 
+    // Methode om de winkelwagenstatistieken bij te werken
     public function updateCartMetrics()
     {
         $this->cartTotal = 0;
@@ -82,6 +86,7 @@ class ShoppingCart extends Component
         }
     }
 
+    // Methode om de componentweergave te renderen
     public function render()
     {
         return view('livewire.public.products.shopping-cart', [

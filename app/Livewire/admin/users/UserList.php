@@ -9,12 +9,13 @@ use Spatie\Permission\Models\Role;
 
 class UserList extends Component
 {
-    use WithPagination;
+    use WithPagination; // Gebruik paginering in dit component
 
-    public $sortField = 'first_name';
-    public $sortDirection = 'asc';
-    public $search = '';
+    public $sortField = 'first_name'; // Veld waarop gesorteerd moet worden
+    public $sortDirection = 'asc'; // Richting van de sortering
+    public $search = ''; // Zoekterm
 
+    // Methode om op een specifiek veld te sorteren
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -25,33 +26,37 @@ class UserList extends Component
         }
     }
 
+    // Methode om een gebruiker te verwijderen
     public function delete($id)
     {
         try {
-            User::where('id', $id)->update(['is_active' => 0]);
-            User::where('id', $id)->delete();
+            User::where('id', $id)->update(['is_active' => 0]); // Zet de gebruiker inactief
+            User::where('id', $id)->delete(); // Verwijder de gebruiker
 
-            return $this->redirect('/admin/gebruikers', navigate: true);
+            return $this->redirect('/admin/gebruikers', navigate: true); // Redirect naar de gebruikerspagina
         } catch (\Exception $th) {
-            dd($th);
+            dd($th); // Toon de uitzondering als er een fout optreedt
         }
     }
 
+    // Methode om een gebruiker te herstellen
     public function restore($id)
     {
         try {
-            User::where('id', $id)->restore();
-            User::where('id', $id)->update(['is_active' => 1]);
-            return $this->redirect('/admin/gebruikers', navigate: true);
+            User::where('id', $id)->restore(); // Herstel de gebruiker
+            User::where('id', $id)->update(['is_active' => 1]); // Zet de gebruiker actief
+            return $this->redirect('/admin/gebruikers', navigate: true); // Redirect naar de gebruikerspagina
         } catch (\Exception $th) {
-            dd($th);
+            dd($th); // Toon de uitzondering als er een fout optreedt
         }
     }
 
+    // Methode om de component te renderen
     public function render()
     {
-        $query = User::withTrashed();
+        $query = User::withTrashed(); // Haal alle gebruikers op, inclusief de verwijderde
 
+        // Zoekfunctie
         if ($this->search) {
             $query->where(function($query) {
                 $query->where('first_name', 'like', '%' . $this->search . '%')
@@ -60,8 +65,10 @@ class UserList extends Component
             });
         }
 
+        // Sorteer de resultaten
         $query->orderBy($this->sortField, $this->sortDirection);
 
+        // Retourneer de weergave met de gebruikers en rollen
         return view('livewire.admin.users.user-list', [
             'roles' => Role::all(),
             'users' => $query->paginate(15),

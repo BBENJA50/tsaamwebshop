@@ -15,7 +15,7 @@
                     @endif
                     <div
                         class="basis-1/6 p-4 text-sm font-normal text-right rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800 align-middle content-center">
-                        <a href="{{ route('children') }}" wire:navigate type="button"
+                        <a href="{{ route('home') }}" wire:navigate type="button"
                            class="text-white text-decoration-none fill-white bg-orange-500 hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-orange-300 font-medium rounded-full text-sm px-4 py-2.5 text-center me-2 mb-2 dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-700">
                             Terug
                         </a>

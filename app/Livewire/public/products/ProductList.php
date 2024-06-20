@@ -10,16 +10,17 @@ use Livewire\Component;
 
 class ProductList extends Component
 {
-    public $child;
-    public $category_id = [];
-    public $studiekeuze_id;
-    public $cart = [];
-    public $totalItems = 0;
-    public $cartTotal = 0;
-    public $myCount = 0;
-    public $selectedAttributeOptions = [];
-    public $productErrors = [];
+    public $child; // Variabele om het geselecteerde kind op te slaan
+    public $category_id = []; // Array om geselecteerde categorieën op te slaan
+    public $studiekeuze_id; // Variabele om de studiekeuze-id op te slaan
+    public $cart = []; // Array om winkelwagenitems op te slaan
+    public $totalItems = 0; // Variabele om het totaal aantal items in de winkelwagen op te slaan
+    public $cartTotal = 0; // Variabele om het totale bedrag van de winkelwagen op te slaan
+    public $myCount = 0; // Variabele om het aantal items in de winkelwagen op te slaan
+    public $selectedAttributeOptions = []; // Array om geselecteerde attribuutopties op te slaan
+    public $productErrors = []; // Array om productfouten op te slaan
 
+    // Methode om het component te mounten met een specifiek kind-id
     public function mount($childId = null)
     {
         if ($childId) {
@@ -37,16 +38,18 @@ class ProductList extends Component
         $this->updateCartMetrics();
     }
 
+    // Methode om te filteren op geselecteerde categorieën
     public function filterByCategory(array $selectedCategories)
     {
         $this->category_id = $selectedCategories;
     }
 
+    // Methode om een product aan de winkelwagen toe te voegen
     public function addProductToCart($productId)
     {
         $product = Product::find($productId);
 
-        // Check if the product has an attribute with id > 1 and ensure an option is selected
+        // Controleer of het product een attribuut met id > 1 heeft en of een optie is geselecteerd
         if ($product->attribute_id > 1 && empty($this->selectedAttributeOptions[$productId])) {
             $this->productErrors[$productId] = 'Selecteer een maat voor het product.';
             return;
@@ -63,7 +66,7 @@ class ProductList extends Component
         }
 
         $this->myCount++;
-        // Check if the product is already in the cart
+        // Controleer of het product al in de winkelwagen zit
         if ($existingProductIndex !== null) {
             $this->cart[$existingProductIndex]['quantity']++;
         } else {
@@ -87,7 +90,7 @@ class ProductList extends Component
         $this->dispatch('added');
     }
 
-
+    // Methode om de hoeveelheid van een product in de winkelwagen bij te werken
     public function updateQuantity($productId, $quantity, $attributeOption = null)
     {
         $existingProductIndex = null;
@@ -107,11 +110,11 @@ class ProductList extends Component
 
         $this->cart = array_values($this->cart);
 
-        session()->put('cart', array_values($this->cart)); // Re-index the array
+        session()->put('cart', array_values($this->cart)); // Herindexeer de array
         $this->updateCartMetrics();
     }
 
-
+    // Methode om een product uit de winkelwagen te verwijderen
     public function removeProductFromCart($productId)
     {
         $this->cart = array_filter($this->cart, function ($item) use ($productId) {
@@ -125,6 +128,7 @@ class ProductList extends Component
         $this->updateCartMetrics();
     }
 
+    // Methode om de winkelwagenstatistieken bij te werken
     public function updateCartMetrics()
     {
         $this->cartTotal = 0;
@@ -137,6 +141,7 @@ class ProductList extends Component
         session()->put('myCount', $this->myCount);
     }
 
+    // Methode om de componentweergave te renderen
     public function render()
     {
         $query = Product::query();
@@ -153,6 +158,7 @@ class ProductList extends Component
 
         $products = $query->orderBy('name')->get();
 
+        // Haal de categorieën op die producten hebben
         $categories = Category::whereHas('products', function ($query) {
             if ($this->child) {
                 $query->whereHas('studiekeuzes', function ($query) {

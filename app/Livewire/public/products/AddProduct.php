@@ -13,10 +13,9 @@ use App\Models\Subject;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-
 class AddProduct extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads; // Voeg functionaliteit toe om bestanden te uploaden
 
     public $name;
     public $price;
@@ -37,22 +36,28 @@ class AddProduct extends Component
     public $image;
     public $selectedCampus = 1;
 
-
+    // Methode om het geselecteerde attribuut bij te werken
     public function changeSelectedAttribute($id)
     {
         $this->selectedAttribute = $id - 1;
     }
+
+    // Methode om de studiekeuzes bij te werken wanneer het academisch jaar verandert
     public function updatedSelectedAcademicYear($value)
     {
         $this->studiekeuzes = Studiekeuze::where('academic_year_id', $value)->orderBy('name')->get();
     }
+
+    // Methode om de geselecteerde campus bij te werken
     public function updateSelectedCampus($value)
     {
         $this->selectedCampus = Campus::where('id', $value)->first()->name;
     }
 
+    // Methode om een product op te slaan
     public function saveProduct()
     {
+        // Validatie van de invoerwaarden
         $this->validate([
             'name' => 'required',
             'price' => 'required',
@@ -64,35 +69,42 @@ class AddProduct extends Component
         ]);
 
         try {
-            $product =Product::create([
+            // Maak een nieuw product aan met de ingevoerde waarden
+            $product = Product::create([
                 'name' => $this->name,
                 'price' => $this->price,
                 'description' => $this->description,
                 'category_id' => $this->category_id,
                 'attribute_id' => $this->attribute_id,
                 'subject_id' => $this->subject_id,
-                'image' => $this->image->store('products', 'public'),
+                'image' => $this->image->store('products', 'public'), // Sla de afbeelding op in de 'public' opslag
             ]);
 
-
+            // Koppel de geselecteerde studiekeuzes aan het product
             foreach ($this->selectedStudiekeuzes as $key => $value) {
                 $product->studiekeuzes()->attach($value);
             }
+
+            // Redirect naar de productlijst na succesvol opslaan
             return $this->redirect('/admin/producten', navigate: true);
 
         } catch (\Exception $e) {
+            // Toon foutmelding bij mislukking
             dd($e);
         }
     }
+
+    // Methode om de componentweergave te renderen
     public function render()
     {
-        $this->studiekeuzes = Studiekeuze::orderBy('name')->get();
-        $this->campusses = Campus::orderBy('name')->get();
-        $this->categories = Category::all();
-        $this->attributen = Attribute::all();
-        $this->attributeOptions = AttributeOption::all();
-        $this->subjects = Subject::all();
-        $this->academic_years = AcademicYear::all();
-        return view('livewire.public.products.add-product');
+        $this->studiekeuzes = Studiekeuze::orderBy('name')->get(); // Haal alle studiekeuzes op
+        $this->campusses = Campus::orderBy('name')->get(); // Haal alle campussen op
+        $this->categories = Category::all(); // Haal alle categorieën op
+        $this->attributen = Attribute::all(); // Haal alle attributen op
+        $this->attributeOptions = AttributeOption::all(); // Haal alle attribuutopties op
+        $this->subjects = Subject::all(); // Haal alle onderwerpen op
+        $this->academic_years = AcademicYear::all(); // Haal alle academische jaren op
+
+        return view('livewire.public.products.add-product'); // Toon de weergave voor het toevoegen van producten
     }
 }

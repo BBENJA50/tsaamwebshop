@@ -1,10 +1,10 @@
 <div>
     <div class="bg-white dark:bg-gray-800 shadow">
         <div class="max-w-7xl mx-auto py-2 mb-2 px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-row justify-between items-center content-center py-0 my-0">
-                <div>
+            <div class="flex flex-col md:flex-row justify-between items-center content-center py-0 my-0">
+                <div class="mb-2 md:mb-0">
                     <div class="flex flex-row">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="size-5 sm:size-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-5 h-5 sm:w-6 sm:h-6">
                             <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z"/>
                         </svg>
                         <a href="{{ route('home') }}" class="no-underline ms-3 text-tsaam-500 hover:text-tsaam-600">Terug naar kinderen</a>
@@ -22,7 +22,7 @@
                     <div class="flex flex-row items-center">
                         <p class="bg-tsaam-600 rounded-full mt-2 px-2">{{ $totalItems }}</p>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-10 h-6 fill-white">
-                            <path d="M253.3 35.1c6.1-11.8 1.5-26.3-10.2-32.4s-26.3-1.5-32.4 10.2L117.6 192H32c-17.7 0-32 14.3-32 32s14.3 32 32 32L83.9 463.5C91 492 116.6 512 146 512H430c29.4 0 55-20 62.1-48.5L544 256c17.7 0 32-14.3 32-32s-14.3-32-32-32H458.4L365.3 12.9C359.2 1.2 344.7-3.4 332.9 2.7s-16.3 20.6-10.2 32.4L404.3 192H171.7L253.3 35.1zM192 304v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16zm96-16c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16z"/>
+                            <path d="M253.3 35.1c6.1-11.8 1.5-26.3-10.2-32.4s-26.3-1.5-32.4 10.2L117.6 192H32c-17.7 0-32 14.3-32 32s14.3 32 32 32L83.9 463.5C91 492 116.6 512 146 512H430c29.4 0 55-20 62.1-48.5L544 256c17.7 0 32-14.3 32-32s-14.3-32-32-32H458.4L365.3 12.9C359.2 1.2 344.7-3.4 332.9 2.7s-16.3 20.6-10.2 32.4L404.3 192H171.7L253.3 35.1zM192 304v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16zm96-16c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16z"/>
                         </svg>
                     </div>
                 </a>
@@ -31,10 +31,10 @@
     </div>
 
     <div>
-        <div id="exampleWrapper" class="overflow-hidden grid grid-cols-8 gap-4 pt-2 pb-16">
-            <div class="col-start-2 col-span-6">
-                <div class="grid grid-cols-7 gap-4">
-                    <div class="col-span-2">
+        <div id="exampleWrapper" class="overflow-hidden grid grid-cols-1 lg:grid-cols-8 gap-4 pt-2 pb-16">
+            <div class="col-start-1 lg:col-start-2 col-span-1 lg:col-span-6">
+                <div class="grid grid-cols-1 md:grid-cols-7 gap-4">
+                    <div class="col-span-1 md:col-span-2">
                         <div class="relative shadow-md sm:rounded-lg">
                             <div class="bg-white p-4 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg sm:rounded-lg">
                                 <p class="text-xl font-semibold border-b-4 border-tsaam-500 rounded text-center mb-10">
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-span-5">
+                    <div class="col-span-1 md:col-span-5">
                         <div class="relative shadow-md sm:rounded-lg">
                             <div class="bg-white p-4 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg sm:rounded-lg">
                                 <p class="text-xl font-semibold border-b-4 border-tsaam-500 rounded text-center mb-10">
@@ -75,7 +75,7 @@
                                 <div>
                                     <table class="table-auto w-full">
                                         <thead>
-                                        <tr class=" bg-gray-100 text-gray-600 uppercase text-sm leading-normal ">
+                                        <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
                                             <th class="py-3 px-6 text-left">Image</th>
                                             <th class="py-3 px-6 text-left">Product</th>
                                             <th class="py-3 px-6 text-left">Opties</th>
@@ -96,7 +96,7 @@
                                                 </td>
                                                 <td class="px-6 text-left w-1/6">{{ $item['name'] }}</td>
                                                 <td class="px-6 text-left w-1/6">{{ $item['attribute_option'] }}</td>
-                                                <td class="px-6 text-left w-1/6 ">
+                                                <td class="px-6 text-left w-1/6">
                                                     <div class="flex flex-row justify-between">
                                                         <button class="ms-4"
                                                                 wire:click="updateQuantity({{ $item['id'] }}, {{ $item['quantity'] - 1 }}, '{{ $item['attribute_option'] }}', {{ $item['child_id'] }})">
@@ -114,7 +114,6 @@
                                                 <td class="px-6 text-left w-1/6">
                                                     <button wire:click="removeProductFromCart({{ $item['id'] }}, '{{ $item['attribute_option'] ?? '' }}', {{ $item['child_id'] }})">Verwijder</button>
                                                 </td>
-
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -123,18 +122,16 @@
                                         <p>{{ __('Je hebt nog geen producten in de winkelwagen.') }}</p>
                                     @endif
 
-                                    <div class="mt-4 flex flex-row justify-between">
-                                        <div>
+                                    <div class="mt-4 flex flex-col md:flex-row justify-between">
+                                        <div >
                                             <strong>Totaal Items:</strong> {{ $totalItems }}<br>
                                             <strong>Totaal Te Betalen:</strong> €{{ number_format($cartTotal, 2) }}<br>
                                         </div>
                                         @if((!empty($cart)))
-                                        <a href="{{ route('checkout') }}" class="no-underline bg-tsaam-500 hover:bg-tsaam-700 text-center text-white font-bold mt-2 py-2 px-4 rounded">Doorgaan naar afrekenen </a>
+                                            <a href="{{ route('checkout') }}" class="no-underline bg-tsaam-500 hover:bg-tsaam-700 text-center content-center text-white font-bold mt-2 py-2 px-4 rounded">Doorgaan naar afrekenen </a>
                                         @endif
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

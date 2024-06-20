@@ -171,28 +171,30 @@ new class extends Component {
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" wire:navigate :active="request()->routeIs('dashboard')"
-                                   wire:navigate>
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('gebruikers')" wire:navigate :active="request()->routeIs('gebruikers')"
-                                   wire:navigate>
-                {{ __('Gebruikers') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('producten')" wire:navigate :active="request()->routeIs('producten')"
-                                   wire:navigate>
-                {{ __('Producten') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" wire:navigate :active="request()->routeIs('categorieën')"
-                                   wire:navigate>
-                {{ __('Categorieën') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" wire:navigate :active="request()->routeIs('rollen')"
-                                   wire:navigate>
-                {{ __('Rollen') }}
-            </x-responsive-nav-link>
-        </div>
+        @if( auth()->user()->hasRole('admin'))
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('dashboard')" wire:navigate :active="request()->routeIs('dashboard')"
+                                       wire:navigate>
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('gebruikers')" wire:navigate :active="request()->routeIs('gebruikers')"
+                                       wire:navigate>
+                    {{ __('Gebruikers') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('producten')" wire:navigate :active="request()->routeIs('producten')"
+                                       wire:navigate>
+                    {{ __('Producten') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('dashboard')" wire:navigate :active="request()->routeIs('categorieën')"
+                                       wire:navigate>
+                    {{ __('Categorieën') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('dashboard')" wire:navigate :active="request()->routeIs('rollen')"
+                                       wire:navigate>
+                    {{ __('Rollen') }}
+                </x-responsive-nav-link>
+            </div>
+        @endif
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
@@ -204,10 +206,13 @@ new class extends Component {
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile')" wire:navigate>
+                <x-responsive-nav-link :href="route('profile')" wire:navigate class="no-underline">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-
+                <x-dropdown-link :href="route('user.orders')" wire:navigate class="no-underline">
+                    {{ __('Mijn bestellingen') }}
+                </x-dropdown-link>
+                <hr>
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
                     <x-responsive-nav-link>

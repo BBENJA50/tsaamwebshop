@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('child_id');
             $table->string('child_name');
             $table->decimal('total_price', 10, 2);
+            $table->string('payment_intent_id')->nullable();
             $table->timestamp('ordered_at');
             $table->timestamps();
         });

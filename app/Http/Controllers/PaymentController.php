@@ -91,6 +91,7 @@ class PaymentController extends Controller
 
         // Haal de winkelwagen details op uit de sessie
         $cart = session()->get('cart', []);
+        $paymentIntentId = session()->get('payment_intent_id');
 
         // Groepeer de winkelwagen items per child_id
         $cartByChild = [];
@@ -113,6 +114,7 @@ class PaymentController extends Controller
                 'child_id' => $child->id,
                 'child_name' => $child->first_name . ' ' . $child->last_name,
                 'total_price' => $totalPrice,
+                'payment_intent_id' => $paymentIntentId,
                 'ordered_at' => now(),
             ]);
 

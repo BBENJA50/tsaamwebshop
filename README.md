@@ -174,7 +174,7 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [Vue-url]: https://vuejs.org/
 * [![Livewire][laravel-livewire.com][Livewire-url]
 
-[laravel-livewire.com]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[laravel-livewire.com]: https://img.shields.io/badge/Livewire?logo=Livewire&logoColor=green
 [Livewire-url]: https://laravel-livewire.com/
 [Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
 [Laravel-url]: https://laravel.com

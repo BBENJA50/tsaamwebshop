@@ -70,7 +70,7 @@ Voor het schooljaar 2025 - 2026 zal deze webshop dan ook geimplementeerd worden 
     STRIPE_KEY=your_stripe_key
     STRIPE_SECRET=your_stripe_secret
 
-## Run Project
+## Start het Project
 
 1. Setup Database
    ```sh

@@ -35,6 +35,9 @@ Voor het schooljaar 2025 - 2026 zal deze webshop dan ook geimplementeerd worden 
 * Alpinejs
 * Laravel 11 v11.10.0
 * Tailwind
+* PHP 8.2
+* Composer
+* NPM
 
 <p align="right">(<a href="#readme-top">terug naar boven</a>)</p>
 
@@ -44,9 +47,43 @@ Voor het schooljaar 2025 - 2026 zal deze webshop dan ook geimplementeerd worden 
    ```sh
    git clone 
    ```
-2. Install NPM packages
+2. Install COMPOSER packages
+   ```sh
+   composer install
+   ```
+3. Install NPM packages
    ```sh
    npm install
+   ```
+4. Setup .env bestand
+   ```sh
+   cp .env.example .env
+   ```
+5. Setup .env bestand
+   ```sh
+   php artisan key:generate
+   ```
+
+## Configure your .env file
+
+### Stripe configuration
+    STRIPE_KEY=your_stripe_key
+    STRIPE_SECRET=your_stripe_secret
+    STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+
+## Run Project
+
+1. Setup Database
+   ```sh
+   php artisan migrate:fresh --seed
+   ```
+2. Compile Assets
+   ```sh
+   npm run dev
+   ```
+3. Serv the Application
+   ```sh
+   php artisan serve
    ```
 
 <p align="right">(<a href="#readme-top">terug naar boven</a>)</p>

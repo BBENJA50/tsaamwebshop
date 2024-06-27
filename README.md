@@ -64,12 +64,11 @@ Voor het schooljaar 2025 - 2026 zal deze webshop dan ook geimplementeerd worden 
    php artisan key:generate
    ```
 
-## Configure your .env file
+## Configureer de .env file
 
 ### Stripe configuration
     STRIPE_KEY=your_stripe_key
     STRIPE_SECRET=your_stripe_secret
-    STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
 
 ## Run Project
 

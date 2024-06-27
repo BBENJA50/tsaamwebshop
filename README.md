@@ -23,7 +23,7 @@
 
 <h1>'t SAAM WEBSHOP</h1>
 
-Dit is een webshop gecreërd door Benjamin Migom als deel van mijn stage. Dit project zal voorgesteld worden tijdens mijn pitch voor het eindwerk. 
+Dit is een webshop gecreërd door Benjamin Migom als deel van mijn stage. Dit project zal voorgesteld worden tijdens mijn pitch voor het eindwerk. </br>
 Voor het schooljaar 2025 - 2026 zal deze webshop dan ook geimplementeerd worden als permanente webshop voor scholengroep 't Saam Diksmuide.
 
 <p align="right">(<a href="#readme-top">terug naar boven</a>)</p>

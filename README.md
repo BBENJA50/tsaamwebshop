@@ -1,19 +1,18 @@
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Table of Contents</summary>
+  <summary>Inhoudstafel</summary>
   <ol>
     <li>
       <a href="#about-the-project">Over Dit Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#built-with">Gemaakt Met</a></li>
       </ul>
     </li>
     <li>
       <ul>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#installation">Installatie</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>

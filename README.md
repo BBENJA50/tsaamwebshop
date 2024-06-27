@@ -9,7 +9,6 @@
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#installation">Installation</a></li>
       </ul>
@@ -33,17 +32,12 @@ Voor het schooljaar 2025 - 2026 zal deze webshop dan ook geimplementeerd worden 
 
 ### Gemaakt Met
 
-* Livewire 3
+* Livewire 3 v3.5.0
 * Alpinejs
-* Laravel 11
+* Laravel 11 v11.10.0
 * Tailwind
 
 <p align="right">(<a href="#readme-top">terug naar boven</a>)</p>
-
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
 
 ### Installatie
 

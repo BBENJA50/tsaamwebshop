@@ -85,6 +85,12 @@ Voor het schooljaar 2025 - 2026 zal deze webshop dan ook geimplementeerd worden 
    php artisan serve
    ```
 
+## Details login
+
+1. Admin login:
+   - migom@hotmail.be
+   - 12345678
+
 <p align="right">(<a href="#readme-top">terug naar boven</a>)</p>
 
 <!-- CONTACT -->

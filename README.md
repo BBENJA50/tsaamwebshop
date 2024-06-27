@@ -10,9 +10,7 @@
       </ul>
     </li>
     <li>
-      <ul>
         <li><a href="#installatie">Installatie</a></li>
-      </ul>
     </li>
     <li><a href="#contact">Contact</a></li>
   </ol>

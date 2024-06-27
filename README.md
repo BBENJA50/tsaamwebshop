@@ -59,7 +59,7 @@ Voor het schooljaar 2025 - 2026 zal deze webshop dan ook geimplementeerd worden 
    ```sh
    cp .env.example .env
    ```
-5. Setup .env bestand
+5. Genereer project key
    ```sh
    php artisan key:generate
    ```

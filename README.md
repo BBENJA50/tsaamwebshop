@@ -10,11 +10,11 @@
       </ul>
     </li>
     <li>
-      <ul>
-        <li></li><a href="#installatie">Installatie</a></li>
-      </ul>
+      <a href="#installatie">Installatie</a>
     </li>
-    <li><a href="#contact">Contact</a></li>
+    <li>
+      <a href="#contact">Contact</a>
+    </li>
   </ol>
 </details>
 

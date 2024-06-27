@@ -3,14 +3,14 @@
   <summary>Inhoudstafel</summary>
   <ol>
     <li>
-      <a href="#about-the-project">Over Dit Project</a>
+      <a href="#over-dit-project">Over Dit Project</a>
       <ul>
-        <li><a href="#built-with">Gemaakt Met</a></li>
+        <li><a href="#gemaakt-met">Gemaakt Met</a></li>
       </ul>
     </li>
     <li>
       <ul>
-        <li><a href="#installation">Installatie</a></li>
+        <li><a href="##installatie">Installatie</a></li>
       </ul>
     </li>
     <li><a href="#contact">Contact</a></li>

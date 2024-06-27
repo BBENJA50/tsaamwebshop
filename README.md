@@ -66,7 +66,7 @@ Voor het schooljaar 2025 - 2026 zal deze webshop dan ook geimplementeerd worden 
 
 ## Configureer de .env file
 
-### Stripe configuration
+### Stripe Configuratie
     STRIPE_KEY=your_stripe_key
     STRIPE_SECRET=your_stripe_secret
 
